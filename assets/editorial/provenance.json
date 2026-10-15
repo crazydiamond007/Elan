@@ -1,0 +1,131 @@
+{
+  "created": "2026-10-13",
+  "purpose": "Original generated visuals for the fictional MAISON \u00c9LAN editorial preview",
+  "assets": [
+    {
+      "asset": "hero",
+      "mode": "built-in imagegen",
+      "prompt": "Use case: photorealistic-natural. Asset type: original premium fashion website landscape editorial hero, 16:9 composition, high resolution. Scene: quiet modernist limestone terrace with warm pale beige walls, autumn late-afternoon sun, an olive tree's subtle shadow, artful architectural space. Subject: fictional adult female fashion model with dark hair wearing an elegant long charcoal wool coat, cream knit and tailored grey trousers, and fictional adult male model wearing a dark taupe jacket and relaxed cream trousers. They are standing naturally together at the RIGHT half, between 55% and 88% of the image width, full-body with both faces and shoes inside frame. LEFT 45% is uncluttered textured warm limestone wall and pavement, intentional negative space for dark website typography added separately. Style: sophisticated original editorial fashion photography, 35mm film texture, tactile wool, candid stillness, refined natural proportions, plausible hands. Muted warm limestone, black, charcoal, cream. Level straight architectural lines, sharp detailed clothes, soft natural shadow. No lettering, no graphics, no logos, no watermarks, no recognizable celebrities. It must look like photography, not an advertisement with baked-in text.",
+      "master": "assets/editorial/sources/hero.webp"
+    },
+    {
+      "asset": "women",
+      "mode": "built-in imagegen",
+      "prompt": "Use case: photorealistic-natural. Asset type: portrait 2:3 fashion category editorial photo for fictional premium brand. A fictional adult female model with dark hair, wearing a sculptural taupe double-breasted wool coat over an ivory fine knit, wide-leg black trousers, understated black shoes. Full body portrait in a quiet warm grey limestone courtyard, leaning naturally against a tall architectural wall, gazing off-camera. Soft side light, understated 35mm fashion editorial film grain, matte natural textures, warm muted palette, expensive thoughtful composition, subject centrally located with breathing room above head and below shoes. Original image. No text, logo, watermark or celebrity likeness.",
+      "master": "assets/editorial/sources/women.webp"
+    },
+    {
+      "asset": "men",
+      "mode": "built-in imagegen",
+      "prompt": "Use case: photorealistic-natural. Asset type: portrait 2:3 fashion category editorial photo for fictional premium brand. A fictional adult male model wearing a dark chocolate unstructured wool overshirt, ivory fine knit top and softly pleated sand trousers, standing beside a warm stone wall in a quiet modern courtyard. Natural handsome face, dark short hair, relaxed hands, full body completely in frame. Refined editorial fashion photography with subtle 35mm grain, matte textures, soft autumn side light, quiet elegant styling, muted cream, taupe and chocolate colors. Centered subject, generous background space. Original image. No text, no logos, no watermark, no celebrity likeness.",
+      "master": "assets/editorial/sources/men.webp"
+    },
+    {
+      "asset": "coat",
+      "mode": "built-in imagegen",
+      "prompt": "Use case: product-mockup. Asset type: single fictional fashion product catalog portrait photograph 3:4. A sculptural charcoal grey long wool coat, double breasted, notched lapels, two matching dark buttons visible, subtle rounded volume at sleeves, luxurious wool texture. Entire garment centered, sleeves naturally hanging, front view ghost mannequin without visible mannequin or hanger. Neutral warm off-white studio background, soft grounded shadow, diffuse daylight. Beautiful premium apparel catalog photography, realistic elegant construction, ample consistent margins. No model, no text, no logos, no accessories, no border or grid.",
+      "master": "assets/editorial/sources/coat.webp"
+    },
+    {
+      "asset": "knit",
+      "mode": "built-in imagegen",
+      "prompt": "Use case: product-mockup. Asset type: single fictional fashion product catalog portrait photograph 3:4. An ivory fine wool crewneck sweater, soft relaxed body, naturally hanging long sleeves, beautiful ribbed neckline, cuffs and hem. Entire garment centered front-facing ghost mannequin with no visible mannequin or hanger. Warm off-white neutral studio background, very soft grounded shadow, diffuse daylight. Premium minimalist garment catalog photography, detailed tactile knitted texture, ample consistent margins. No model, no words, no logo, no accessories, no grid or border.",
+      "master": "assets/editorial/sources/knit.webp"
+    },
+    {
+      "asset": "trousers",
+      "mode": "built-in imagegen",
+      "prompt": "Use case: product-mockup. Asset type: single fictional fashion product catalog portrait photograph 3:4. A pair of elegant sand taupe wool wide-leg trousers, softly pressed front pleats, neat waistband, both complete legs hanging naturally straight. Entire garment centered with subtle dimensional volume, front-facing ghost mannequin without a visible mannequin or hanger. Warm off-white studio background, diffuse daylight and a faint soft shadow. Premium original apparel product photograph, tactile woven texture and clean realistic construction, ample consistent margins. No person, no text, no logo, no accessories, no border or grid.",
+      "master": "assets/editorial/sources/trousers.webp"
+    },
+    {
+      "asset": "bag",
+      "mode": "built-in imagegen",
+      "prompt": "Use case: product-mockup. Asset type: single fictional accessory product catalog portrait photograph 3:4. A minimal supple black leather medium tote with two refined long handles, slightly rounded rectangular body, no hardware branding or logo, sitting on an off-white plinth that blends into a warm off-white studio backdrop. Entire bag and handles visible, front three-quarter view. Natural pebbled leather texture, simple beautifully crafted seams, soft diffuse daylight, realistic softly grounded shadow. Premium original accessory photograph, tasteful scale with ample margins. No lettering, no watermark, no recognizable brand design, no people, no grid or border.",
+      "master": "assets/editorial/sources/bag.webp"
+    },
+    {
+      "asset": "atelier",
+      "mode": "built-in imagegen",
+      "prompt": "Use case: photorealistic-natural. Asset type: portrait 4:5 editorial craftsmanship photo for an original fictional fashion website. Intimate crop of an adult tailor's natural hands resting beside a draped piece of warm grey wool on an old pale oak cutting table in an airy minimalist atelier. An unbranded pair of metal tailor scissors and folded ivory fabric are subtle peripheral elements. Quiet soft window light falling from the left, beautiful tactile textile detail, restrained cream, sand, wood and charcoal palette, 35mm analog editorial photography. Genuine plausible hands and fabric, carefully composed imperfect stillness. No face, no writing, no logos, no watermark, no collage.",
+      "master": "assets/editorial/sources/atelier.webp"
+    },
+    {
+      "asset": "overshirt",
+      "prompt": "Use case: product-mockup. Asset type: original premium fashion e-commerce portrait photograph, 3:4. Primary request: a fictional unbranded dark chocolate wool overshirt with a straight hem, six plain dark buttons, two neat chest pockets, relaxed tailored structure, naturally hanging long sleeves. Entire garment centered front-facing ghost mannequin, no visible mannequin or hanger. Warm off-white seamless studio background, soft grounded shadow, diffused daylight, tactile fine wool weave, realistic construction, ample margins consistent with a minimalist luxury clothing catalog. No text, logos, watermarks, people, accessories, border or grid. This is a single distinct product photograph for MAISON \u00c9LAN.",
+      "master": "assets/editorial/sources/overshirt.webp",
+      "created": "2026-10-14",
+      "mode": "built-in imagegen"
+    },
+    {
+      "asset": "linen-shirt",
+      "prompt": "Use case: product-mockup. Asset type: original premium fashion e-commerce portrait photograph, 3:4. Primary request: an ivory linen men's shirt with open spread collar, seven small tonal buttons, softly structured cuffs, long sleeves and gently curved hem, precise relaxed construction and visible natural linen texture. Entire garment centered front-facing ghost mannequin, no visible mannequin or hanger. Warm off-white seamless studio background, soft grounded shadow, diffused daylight, realistic construction, ample margins consistent with a minimalist luxury clothing catalog. No text, logos, watermarks, people, accessories, border or grid. Single distinct fictional product photograph for MAISON \u00c9LAN.",
+      "master": "assets/editorial/sources/linen-shirt.webp",
+      "created": "2026-10-14",
+      "mode": "built-in imagegen"
+    },
+    {
+      "asset": "tailored-blazer",
+      "prompt": "Use case: product-mockup. Asset type: original premium fashion e-commerce portrait photograph, 3:4. Primary request: a women's warm taupe single-breasted tailored blazer, one plain tonal button, notched lapels, softly structured shoulders, two welt flap pockets, long naturally hanging sleeves, luxurious fine wool weave. Entire garment centered front-facing ghost mannequin, no visible mannequin or hanger. Warm off-white seamless studio background, soft grounded shadow, diffused daylight, realistic construction, ample margins consistent with a minimalist luxury clothing catalog. No text, logos, watermarks, people, accessories, border or grid. Single distinct fictional product photograph for MAISON \u00c9LAN.",
+      "master": "assets/editorial/sources/tailored-blazer.webp",
+      "created": "2026-10-14",
+      "mode": "built-in imagegen"
+    },
+    {
+      "asset": "merino-cardigan",
+      "prompt": "Use case: product-mockup. Asset type: original premium fashion e-commerce portrait photograph, 3:4. Primary request: a men's soft oatmeal merino wool cardigan, classic V neckline, five understated brown buttons, fine ribbed cuffs and hem, two small patch pockets, relaxed long sleeves and a fine-gauge knit. Entire garment centered front-facing ghost mannequin, no visible mannequin or hanger. Warm off-white seamless studio background, soft grounded shadow, diffused daylight, realistic construction, ample margins consistent with a minimalist luxury clothing catalog. No text, logos, watermarks, people, accessories, border or grid. Single distinct fictional product photograph for MAISON \u00c9LAN.",
+      "master": "assets/editorial/sources/merino-cardigan.webp",
+      "created": "2026-10-14",
+      "mode": "built-in imagegen"
+    },
+    {
+      "asset": "silk-dress",
+      "prompt": "Use case: product-mockup. Asset type: original premium fashion e-commerce portrait photograph, 3:4. Primary request: a women's ink-black midi silk dress, simple sleeveless round neckline, wide shoulder straps, gently defined waist and fluid softly flared skirt, the entire hem visible, matte silk with subtle soft highlights. Entire garment centered front-facing ghost mannequin, no visible mannequin or hanger. Warm off-white seamless studio background, soft grounded shadow, diffused daylight, realistic construction, ample margins consistent with a minimalist luxury clothing catalog. No text, logos, watermarks, people, accessories, border or grid. Single distinct fictional product photograph for MAISON \u00c9LAN.",
+      "master": "assets/editorial/sources/silk-dress.webp",
+      "created": "2026-10-14",
+      "mode": "built-in imagegen"
+    },
+    {
+      "asset": "navy-trousers",
+      "prompt": "Use case: product-mockup. Asset type: original premium fashion e-commerce portrait photograph, 3:4. Primary request: a pair of men's midnight navy tailored wool trousers, clean waistband, precise front pleats and straight complete legs, finely pressed crease, subtle woven wool texture. Entire garment centered front-facing ghost mannequin, no visible mannequin or hanger. Warm off-white seamless studio background, soft grounded shadow, diffused daylight, realistic construction, ample margins consistent with a minimalist luxury clothing catalog. No text, logos, watermarks, people, accessories, border or grid. Single distinct fictional product photograph for MAISON \u00c9LAN.",
+      "master": "assets/editorial/sources/navy-trousers.webp",
+      "created": "2026-10-14",
+      "mode": "built-in imagegen"
+    },
+    {
+      "asset": "zip-jacket",
+      "prompt": "Use case: product-mockup. Asset type: original premium fashion e-commerce portrait photograph, 3:4. Primary request: a men's deep olive minimalist cotton twill blouson jacket, neat point collar, plain dark zipper, two subtle slanted welt pockets, long sleeves, clean rib-free cuffs and straight hem, refined woven texture. Entire item centered front-facing ghost mannequin, no visible mannequin or hanger. Warm off-white seamless studio background, soft grounded shadow, diffused daylight, realistic construction, ample margins consistent with a minimalist luxury clothing catalog. No text, logos, watermarks, people, other accessories, border or grid. Single distinct fictional product photograph for MAISON \u00c9LAN.",
+      "master": "assets/editorial/sources/zip-jacket.webp",
+      "created": "2026-10-14",
+      "mode": "built-in imagegen"
+    },
+    {
+      "asset": "pleated-skirt",
+      "prompt": "Use case: product-mockup. Asset type: original premium fashion e-commerce portrait photograph, 3:4. Primary request: a women's slate grey midi skirt with fine even knife pleats, clean fitted waistband, fluid drape and fully visible gently spread hem, refined wool-blend weave. Entire item centered front-facing ghost mannequin, no visible mannequin or hanger. Warm off-white seamless studio background, soft grounded shadow, diffused daylight, realistic construction, ample margins consistent with a minimalist luxury clothing catalog. No text, logos, watermarks, people, other accessories, border or grid. Single distinct fictional product photograph for MAISON \u00c9LAN.",
+      "master": "assets/editorial/sources/pleated-skirt.webp",
+      "created": "2026-10-14",
+      "mode": "built-in imagegen"
+    },
+    {
+      "asset": "merino-top",
+      "prompt": "Use case: product-mockup. Asset type: original premium fashion e-commerce portrait photograph, 3:4. Primary request: a women's deep burgundy fine merino wool turtleneck, elegant moderately high folded collar, long naturally hanging sleeves, relaxed straight body and subtle ribbed cuffs and hem. Entire item centered front-facing ghost mannequin, no visible mannequin or hanger. Warm off-white seamless studio background, soft grounded shadow, diffused daylight, realistic construction, ample margins consistent with a minimalist luxury clothing catalog. No text, logos, watermarks, people, other accessories, border or grid. Single distinct fictional product photograph for MAISON \u00c9LAN.",
+      "master": "assets/editorial/sources/merino-top.webp",
+      "created": "2026-10-14",
+      "mode": "built-in imagegen"
+    },
+    {
+      "asset": "wool-scarf",
+      "prompt": "Use case: product-mockup. Asset type: original premium fashion e-commerce portrait photograph, 3:4. Primary request: one generously sized muted camel wool scarf, softly draped in a loose folded loop with both fringed ends visible, luxurious fine brushed texture, understated rectangular construction, entirely visible and centered. Entire item centered front-facing studio arrangement, no visible mannequin or hanger. Warm off-white seamless studio background, soft grounded shadow, diffused daylight, realistic construction, ample margins consistent with a minimalist luxury clothing catalog. No text, logos, watermarks, people, other accessories, border or grid. Single distinct fictional product photograph for MAISON \u00c9LAN.",
+      "master": "assets/editorial/sources/wool-scarf.webp",
+      "created": "2026-10-14",
+      "mode": "built-in imagegen"
+    },
+    {
+      "asset": "coastal-campaign",
+      "mode": "built-in imagegen",
+      "created": "2026-10-15",
+      "prompt": "Use case: photorealistic-natural. Asset type: original fashion house campaign photograph for a website, wide landscape 16:9, high resolution. Scene: an airy modernist coastal villa interior opening to a pale blue-grey sea, raw plaster walls and a smooth stone floor, a single sculptural dark wooden chair near the edge. Subject: two fictional adult fashion models, one woman in sculptural ivory tailoring and a long dark navy coat carried loosely, one man in an unstructured chocolate wool jacket and ivory trousers. Both are in the central half of the frame, a little apart, completely visible head to shoes, natural candid standing poses, quiet expressive faces, no celebrity resemblance. Compose an immersive fashion editorial with balanced architectural space on both sides, no large empty area reserved for website text. Soft luminous overcast daylight, authentic skin texture, tactile wool and cotton, nuanced cool sea blue, chalk white and dark brown palette, cinematic medium-format fashion photography, elegant genuine proportions and plausible hands. No writing, logo, watermark, border, collage or graphic overlay. Original visual for fictional MAISON \u00c9LAN, no existing brand designs.",
+      "master": "assets/editorial/sources/coastal-campaign.webp"
+    }
+  ]
+}

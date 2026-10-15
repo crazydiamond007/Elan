@@ -1,0 +1,6 @@
+{% extends 'base.html' %}
+{% block title %}Demo confirmation — MAISON ÉLAN{% endblock %}
+{% block content %}
+  <div class="confirmation-intro"><p class="eyebrow">Demonstration complete</p><h1 class="page-title">A considered choice.</h1><p>Thank you for exploring MAISON ÉLAN.</p><p class="confirmation-notice">This is a simulated confirmation. No payment was taken, no real order was placed and nothing will be dispatched.</p><p class="fine-print">Demo reference {{ receipt.reference }} · {{ receipt.created_at|date:'j F Y' }}</p></div>
+  <section class="confirmation-summary" aria-labelledby="confirmation-heading"><h2 class="section-title" id="confirmation-heading">Your imagined wardrobe</h2><ul class="checkout-pieces">{% for line in receipt.lines %}<li><div><span>{{ line.name }}</span><p>{{ line.color }} / {{ line.size }} · Qty {{ line.quantity }}</p></div><span>€{{ line.total }}</span></li>{% endfor %}</ul><dl class="confirmation-total"><dt>Demo total</dt><dd>€{{ receipt.subtotal|floatformat:'2' }}</dd></dl><a class="button button-dark" href="{% url 'catalog:all' %}">Return to the collection {% include 'components/arrow.html' %}</a></section>
+{% endblock %}

@@ -1,0 +1,86 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}MAISON ÉLAN — A considered wardrobe{% endblock %}
+{% block description %}Discover the fictional MAISON ÉLAN Autumn / Winter collection: quiet tailoring, tactile layers and an everyday point of view.{% endblock %}
+{% block main_class %}homepage{% endblock %}
+{% block content %}
+  <section class="hero" aria-labelledby="hero-heading">
+    <picture class="hero-picture">
+      <source media="(max-width: 767px)" srcset="{% static 'images/editorial/hero-mobile-480.webp' %} 480w, {% static 'images/editorial/hero-mobile-640.webp' %} 640w, {% static 'images/editorial/hero-mobile-800.webp' %} 800w" sizes="100vw" width="800" height="1000">
+      <img src="{% static 'images/editorial/hero-1600.webp' %}" srcset="{% static 'images/editorial/hero-800.webp' %} 800w, {% static 'images/editorial/hero-1280.webp' %} 1280w, {% static 'images/editorial/hero-1600.webp' %} 1600w" sizes="100vw" width="1600" height="900" alt="Two models wear neutral tailoring in a sunlit stone courtyard." fetchpriority="high" decoding="async">
+    </picture>
+    <div class="hero-content content-shell">
+      <div class="hero-copy">
+        <p class="eyebrow">Autumn / Winter 26</p>
+        <h1 id="hero-heading">The art<br>of <em>less.</em></h1>
+        <p class="hero-description">Quiet silhouettes. Tactile layers.<br>A wardrobe with room to breathe.</p>
+        <a class="button button-dark" href="{% url 'catalog:all' %}">Explore Collection {% include 'components/arrow.html' %}</a>
+      </div>
+    </div>
+  </section>
+  <div class="content-shell hero-caption"><span>01 / A considered wardrobe</span><span>A quiet point of view</span></div>
+
+  <section class="content-shell section-space" aria-labelledby="categories-heading">
+    <div class="section-header">
+      <div><p class="eyebrow">The wardrobe</p><h2 class="section-title" id="categories-heading">Find your own expression.</h2></div>
+      <p class="section-aside">Quiet forms.<br>Everyday possibilities.</p>
+    </div>
+    <div class="category-grid">
+      <a class="category-card" href="{% url 'catalog:women' %}">
+        <div class="category-media">{% include 'components/image.html' with image_name='women' image_alt='A model in a taupe wool coat and black trousers beside a stone column.' image_height='1440' image_sizes='(min-width: 768px) 33vw, 50vw' %}</div>
+        <div class="category-label"><h3>Women</h3>{% include 'components/arrow.html' %}</div>
+      </a>
+      <a class="category-card" href="{% url 'catalog:men' %}">
+        <div class="category-media">{% include 'components/image.html' with image_name='men' image_alt='A model wearing a chocolate wool overshirt and sand trousers.' image_height='1440' image_sizes='(min-width: 768px) 33vw, 50vw' %}</div>
+        <div class="category-label"><h3>Men</h3>{% include 'components/arrow.html' %}</div>
+      </a>
+      <a class="category-card category-accessories" href="{% url 'catalog:accessories' %}">
+        <div class="category-media">{% include 'components/image.html' with image_name='bag' image_alt='A minimal black leather tote on a warm ivory plinth.' image_sizes='(min-width: 768px) 33vw, 100vw' %}</div>
+        <div class="category-label"><h3>Accessories</h3>{% include 'components/arrow.html' %}</div>
+      </a>
+    </div>
+  </section>
+
+  <section class="content-shell section-space arrivals-section" id="new-arrivals" aria-labelledby="arrivals-heading" tabindex="-1">
+    <div class="section-header">
+      <div><p class="eyebrow">A first look</p><h2 class="section-title" id="arrivals-heading">New arrivals</h2></div>
+      <a class="text-link" href="{% url 'catalog:all' %}">View the collection {% include 'components/arrow.html' %}</a>
+    </div>
+    <div class="product-grid">
+      {% for piece in arrivals %}{% include 'components/product_card.html' with card_sizes='(min-width: 768px) 25vw, 50vw' %}{% empty %}<p class="empty-state">New pieces will appear here when published.</p>{% endfor %}
+    </div>
+    <p class="section-note">Fictional products · Illustrative prices · No real purchases</p>
+  </section>
+
+  <section class="campaign" aria-labelledby="campaign-heading">
+    <div class="campaign-image">{% include 'components/image.html' with image_name='women' image_alt='Soft autumn light falls across a taupe coat and ivory knit.' image_height='1440' image_sizes='(min-width: 768px) 50vw, 100vw' %}</div>
+    <div class="campaign-copy">
+      <p class="eyebrow">Autumn / Winter 26 · Chapter I</p>
+      <h2 id="campaign-heading">A softer<br><em>season.</em></h2>
+      <p>A slower rhythm. A different light. Discover a study in soft structure, warm neutrals and the pleasure of dressing simply.</p>
+      <a class="text-link" href="{% url 'catalog:collections' %}">Discover the autumn edit {% include 'components/arrow.html' %}</a>
+    </div>
+  </section>
+
+  <section class="content-shell section-space favourites-section" aria-labelledby="favourites-heading">
+    <div class="section-header">
+      <div><p class="eyebrow">The signature edit</p><h2 class="section-title" id="favourites-heading">The pieces we return to.</h2></div>
+      <p class="section-aside">Our best-seller preview.<br>A curated demo selection.</p>
+    </div>
+    <div class="product-grid product-grid-three">
+      {% for piece in favourites %}{% include 'components/product_card.html' with card_sizes='(min-width: 768px) 33vw, 50vw' %}{% empty %}<p class="empty-state">Our signature edit is taking shape.</p>{% endfor %}
+    </div>
+  </section>
+
+  <section class="content-shell section-space story-section" aria-labelledby="story-heading">
+    <div class="story-image">{% include 'components/image.html' with image_name='atelier' image_alt='Hands rest beside grey wool on an oak cutting table in a softly lit atelier.' image_height='1200' image_sizes='(min-width: 768px) 45vw, 100vw' %}</div>
+    <div class="story-copy">
+      <p class="eyebrow">Our story</p>
+      <h2 class="section-title" id="story-heading">Considered, down<br>to the last detail.</h2>
+      <p>We imagine a wardrobe that feels instinctive. Beautiful textures, thoughtful proportions and pieces that find their place in everyday life.</p>
+      <p>A quiet point of view. An expression of your own.</p>
+      <a class="text-link" href="{% url 'core:story' %}">Our story {% include 'components/arrow.html' %}</a>
+    </div>
+  </section>
+
+{% endblock %}

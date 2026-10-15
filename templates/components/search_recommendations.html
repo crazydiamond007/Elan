@@ -1,0 +1,3 @@
+<div class="search-discover"><h3>You may also like</h3><div class="search-recommendations">
+  {% for piece in pieces %}{% if forloop.counter <= 3 %}<a href="{{ piece.get_absolute_url }}">{% include 'catalog/image.html' with photo=piece.primary_image image_sizes='200px' %}<span>{{ piece.name }}</span></a>{% endif %}{% endfor %}
+</div></div>

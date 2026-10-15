@@ -1,0 +1,9 @@
+{% extends 'base.html' %}
+{% block title %}The collections — MAISON ÉLAN{% endblock %}
+{% block content %}
+  <div class="catalog-intro"><p class="eyebrow">A quiet point of view</p><h1 class="page-title">The collections</h1><p>Thoughtful chapters in an imagined wardrobe. Explore our seasonal and signature edits.</p></div>
+  <div class="collection-list">
+    {% for collection in collections %}<a class="collection-entry" href="{{ collection.get_absolute_url }}"><div><p class="eyebrow">{% if collection.is_featured %}Featured collection{% else %}The wardrobe{% endif %}</p><h2 class="section-title">{{ collection.name }}</h2><p>{{ collection.description }}</p></div>{% include 'components/arrow.html' %}</a>
+    {% empty %}<div class="empty-state"><h2 class="section-title">The next chapter is taking shape.</h2><p>New collections will appear here when published.</p><a class="text-link" href="{% url 'catalog:all' %}">Explore all pieces</a></div>{% endfor %}
+  </div>
+{% endblock %}

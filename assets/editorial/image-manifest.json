@@ -1,0 +1,524 @@
+{
+  "atelier": [
+    {
+      "file": "atelier-320.webp",
+      "width": 320,
+      "height": 400,
+      "bytes": 17072
+    },
+    {
+      "file": "atelier-480.webp",
+      "width": 480,
+      "height": 600,
+      "bytes": 32790
+    },
+    {
+      "file": "atelier-720.webp",
+      "width": 720,
+      "height": 900,
+      "bytes": 62132
+    },
+    {
+      "file": "atelier-960.webp",
+      "width": 960,
+      "height": 1200,
+      "bytes": 93258
+    }
+  ],
+  "bag": [
+    {
+      "file": "bag-320.webp",
+      "width": 320,
+      "height": 427,
+      "bytes": 5994
+    },
+    {
+      "file": "bag-480.webp",
+      "width": 480,
+      "height": 640,
+      "bytes": 16856
+    },
+    {
+      "file": "bag-720.webp",
+      "width": 720,
+      "height": 960,
+      "bytes": 45514
+    },
+    {
+      "file": "bag-960.webp",
+      "width": 960,
+      "height": 1280,
+      "bytes": 82836
+    }
+  ],
+  "coastal-campaign": [
+    {
+      "file": "coastal-campaign-800.webp",
+      "width": 800,
+      "height": 450,
+      "bytes": 36134
+    },
+    {
+      "file": "coastal-campaign-1280.webp",
+      "width": 1280,
+      "height": 720,
+      "bytes": 75258
+    },
+    {
+      "file": "coastal-campaign-1600.webp",
+      "width": 1600,
+      "height": 900,
+      "bytes": 103592
+    }
+  ],
+  "coastal-campaign-mobile": [
+    {
+      "file": "coastal-campaign-mobile-480.webp",
+      "width": 480,
+      "height": 600,
+      "bytes": 23010
+    },
+    {
+      "file": "coastal-campaign-mobile-640.webp",
+      "width": 640,
+      "height": 800,
+      "bytes": 33908
+    },
+    {
+      "file": "coastal-campaign-mobile-800.webp",
+      "width": 800,
+      "height": 1000,
+      "bytes": 45172
+    }
+  ],
+  "coat": [
+    {
+      "file": "coat-320.webp",
+      "width": 320,
+      "height": 427,
+      "bytes": 5714
+    },
+    {
+      "file": "coat-480.webp",
+      "width": 480,
+      "height": 640,
+      "bytes": 15280
+    },
+    {
+      "file": "coat-720.webp",
+      "width": 720,
+      "height": 960,
+      "bytes": 43088
+    },
+    {
+      "file": "coat-960.webp",
+      "width": 960,
+      "height": 1280,
+      "bytes": 79348
+    }
+  ],
+  "hero": [
+    {
+      "file": "hero-800.webp",
+      "width": 800,
+      "height": 450,
+      "bytes": 45060
+    },
+    {
+      "file": "hero-1280.webp",
+      "width": 1280,
+      "height": 720,
+      "bytes": 103798
+    },
+    {
+      "file": "hero-1600.webp",
+      "width": 1600,
+      "height": 900,
+      "bytes": 143370
+    }
+  ],
+  "hero-mobile": [
+    {
+      "file": "hero-mobile-480.webp",
+      "width": 480,
+      "height": 600,
+      "bytes": 32542
+    },
+    {
+      "file": "hero-mobile-640.webp",
+      "width": 640,
+      "height": 800,
+      "bytes": 48780
+    },
+    {
+      "file": "hero-mobile-800.webp",
+      "width": 800,
+      "height": 1000,
+      "bytes": 64792
+    }
+  ],
+  "knit": [
+    {
+      "file": "knit-320.webp",
+      "width": 320,
+      "height": 427,
+      "bytes": 4234
+    },
+    {
+      "file": "knit-480.webp",
+      "width": 480,
+      "height": 640,
+      "bytes": 14424
+    },
+    {
+      "file": "knit-720.webp",
+      "width": 720,
+      "height": 960,
+      "bytes": 42848
+    },
+    {
+      "file": "knit-960.webp",
+      "width": 960,
+      "height": 1280,
+      "bytes": 73612
+    }
+  ],
+  "linen-shirt": [
+    {
+      "file": "linen-shirt-320.webp",
+      "width": 320,
+      "height": 427,
+      "bytes": 4600
+    },
+    {
+      "file": "linen-shirt-480.webp",
+      "width": 480,
+      "height": 640,
+      "bytes": 8988
+    },
+    {
+      "file": "linen-shirt-720.webp",
+      "width": 720,
+      "height": 960,
+      "bytes": 19232
+    },
+    {
+      "file": "linen-shirt-960.webp",
+      "width": 960,
+      "height": 1280,
+      "bytes": 34186
+    }
+  ],
+  "men": [
+    {
+      "file": "men-320.webp",
+      "width": 320,
+      "height": 480,
+      "bytes": 23148
+    },
+    {
+      "file": "men-480.webp",
+      "width": 480,
+      "height": 720,
+      "bytes": 46182
+    },
+    {
+      "file": "men-720.webp",
+      "width": 720,
+      "height": 1080,
+      "bytes": 86060
+    },
+    {
+      "file": "men-960.webp",
+      "width": 960,
+      "height": 1440,
+      "bytes": 127370
+    }
+  ],
+  "merino-cardigan": [
+    {
+      "file": "merino-cardigan-320.webp",
+      "width": 320,
+      "height": 427,
+      "bytes": 5472
+    },
+    {
+      "file": "merino-cardigan-480.webp",
+      "width": 480,
+      "height": 640,
+      "bytes": 13448
+    },
+    {
+      "file": "merino-cardigan-720.webp",
+      "width": 720,
+      "height": 960,
+      "bytes": 36592
+    },
+    {
+      "file": "merino-cardigan-960.webp",
+      "width": 960,
+      "height": 1280,
+      "bytes": 73516
+    }
+  ],
+  "merino-top": [
+    {
+      "file": "merino-top-320.webp",
+      "width": 320,
+      "height": 427,
+      "bytes": 4596
+    },
+    {
+      "file": "merino-top-480.webp",
+      "width": 480,
+      "height": 640,
+      "bytes": 8610
+    },
+    {
+      "file": "merino-top-720.webp",
+      "width": 720,
+      "height": 960,
+      "bytes": 22336
+    },
+    {
+      "file": "merino-top-960.webp",
+      "width": 960,
+      "height": 1280,
+      "bytes": 51322
+    }
+  ],
+  "navy-trousers": [
+    {
+      "file": "navy-trousers-320.webp",
+      "width": 320,
+      "height": 427,
+      "bytes": 2980
+    },
+    {
+      "file": "navy-trousers-480.webp",
+      "width": 480,
+      "height": 640,
+      "bytes": 5020
+    },
+    {
+      "file": "navy-trousers-720.webp",
+      "width": 720,
+      "height": 960,
+      "bytes": 9572
+    },
+    {
+      "file": "navy-trousers-960.webp",
+      "width": 960,
+      "height": 1280,
+      "bytes": 18260
+    }
+  ],
+  "overshirt": [
+    {
+      "file": "overshirt-320.webp",
+      "width": 320,
+      "height": 427,
+      "bytes": 5158
+    },
+    {
+      "file": "overshirt-480.webp",
+      "width": 480,
+      "height": 640,
+      "bytes": 12134
+    },
+    {
+      "file": "overshirt-720.webp",
+      "width": 720,
+      "height": 960,
+      "bytes": 36062
+    },
+    {
+      "file": "overshirt-960.webp",
+      "width": 960,
+      "height": 1280,
+      "bytes": 70048
+    }
+  ],
+  "pleated-skirt": [
+    {
+      "file": "pleated-skirt-320.webp",
+      "width": 320,
+      "height": 427,
+      "bytes": 5862
+    },
+    {
+      "file": "pleated-skirt-480.webp",
+      "width": 480,
+      "height": 640,
+      "bytes": 11510
+    },
+    {
+      "file": "pleated-skirt-720.webp",
+      "width": 720,
+      "height": 960,
+      "bytes": 31880
+    },
+    {
+      "file": "pleated-skirt-960.webp",
+      "width": 960,
+      "height": 1280,
+      "bytes": 63234
+    }
+  ],
+  "silk-dress": [
+    {
+      "file": "silk-dress-320.webp",
+      "width": 320,
+      "height": 427,
+      "bytes": 3728
+    },
+    {
+      "file": "silk-dress-480.webp",
+      "width": 480,
+      "height": 640,
+      "bytes": 6246
+    },
+    {
+      "file": "silk-dress-720.webp",
+      "width": 720,
+      "height": 960,
+      "bytes": 10632
+    },
+    {
+      "file": "silk-dress-960.webp",
+      "width": 960,
+      "height": 1280,
+      "bytes": 16512
+    }
+  ],
+  "tailored-blazer": [
+    {
+      "file": "tailored-blazer-320.webp",
+      "width": 320,
+      "height": 427,
+      "bytes": 4502
+    },
+    {
+      "file": "tailored-blazer-480.webp",
+      "width": 480,
+      "height": 640,
+      "bytes": 9206
+    },
+    {
+      "file": "tailored-blazer-720.webp",
+      "width": 720,
+      "height": 960,
+      "bytes": 25596
+    },
+    {
+      "file": "tailored-blazer-960.webp",
+      "width": 960,
+      "height": 1280,
+      "bytes": 54786
+    }
+  ],
+  "trousers": [
+    {
+      "file": "trousers-320.webp",
+      "width": 320,
+      "height": 427,
+      "bytes": 3754
+    },
+    {
+      "file": "trousers-480.webp",
+      "width": 480,
+      "height": 640,
+      "bytes": 8642
+    },
+    {
+      "file": "trousers-720.webp",
+      "width": 720,
+      "height": 960,
+      "bytes": 24346
+    },
+    {
+      "file": "trousers-960.webp",
+      "width": 960,
+      "height": 1280,
+      "bytes": 49616
+    }
+  ],
+  "women": [
+    {
+      "file": "women-320.webp",
+      "width": 320,
+      "height": 480,
+      "bytes": 18616
+    },
+    {
+      "file": "women-480.webp",
+      "width": 480,
+      "height": 720,
+      "bytes": 39286
+    },
+    {
+      "file": "women-720.webp",
+      "width": 720,
+      "height": 1080,
+      "bytes": 80762
+    },
+    {
+      "file": "women-960.webp",
+      "width": 960,
+      "height": 1440,
+      "bytes": 129536
+    }
+  ],
+  "wool-scarf": [
+    {
+      "file": "wool-scarf-320.webp",
+      "width": 320,
+      "height": 427,
+      "bytes": 7842
+    },
+    {
+      "file": "wool-scarf-480.webp",
+      "width": 480,
+      "height": 640,
+      "bytes": 16542
+    },
+    {
+      "file": "wool-scarf-720.webp",
+      "width": 720,
+      "height": 960,
+      "bytes": 40642
+    },
+    {
+      "file": "wool-scarf-960.webp",
+      "width": 960,
+      "height": 1280,
+      "bytes": 70222
+    }
+  ],
+  "zip-jacket": [
+    {
+      "file": "zip-jacket-320.webp",
+      "width": 320,
+      "height": 427,
+      "bytes": 5330
+    },
+    {
+      "file": "zip-jacket-480.webp",
+      "width": 480,
+      "height": 640,
+      "bytes": 9904
+    },
+    {
+      "file": "zip-jacket-720.webp",
+      "width": 720,
+      "height": 960,
+      "bytes": 21842
+    },
+    {
+      "file": "zip-jacket-960.webp",
+      "width": 960,
+      "height": 1280,
+      "bytes": 41450
+    }
+  ]
+}

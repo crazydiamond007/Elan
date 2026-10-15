@@ -1,0 +1,40 @@
+{% load static metadata %}
+<!doctype html>
+<html lang="en-GB">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{% block title %}MAISON ÉLAN{% endblock %}</title>
+    <meta name="description" content="{% block description %}MAISON ÉLAN, a fictional fashion label and demonstration shopping experience.{% endblock %}">
+    <meta name="robots" content="noindex, nofollow, noarchive">
+    <link rel="icon" href="{% static 'images/favicon.svg' %}" type="image/svg+xml">
+    {% block canonical %}{% if not private_page %}<link rel="canonical" href="{{ canonical_url }}">{% endif %}{% endblock %}
+    {% block social_metadata %}{% if not private_page %}
+      <meta property="og:type" content="website">
+      <meta property="og:site_name" content="MAISON ÉLAN">
+      <meta property="og:locale" content="en_GB">
+      <meta property="og:title" content="{{ social_title|default:'MAISON ÉLAN — A considered wardrobe' }}">
+      <meta property="og:description" content="{{ social_description|default:'A fictional premium fashion label. Explore a demonstration shopping experience; no real purchases.' }}">
+      <meta property="og:url" content="{{ canonical_url }}">
+      {% if social_image %}<meta property="og:image" content="{{ social_image }}">{% endif %}
+      <meta name="twitter:card" content="summary_large_image">
+      {% structured_metadata %}
+    {% endif %}{% endblock %}
+    <link rel="preload" href="{% static 'fonts/inter-latin.woff2' %}" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="{% static 'fonts/cormorant-garamond-latin.woff2' %}" as="font" type="font/woff2" crossorigin>
+    <link rel="stylesheet" href="{% static 'css/app.css' %}">
+    <script src="{% static 'js/navigation.js' %}" defer></script>
+    <script src="{% static 'js/forms.js' %}" defer></script>
+    {% block extra_head %}{% endblock %}
+  </head>
+  <body>
+    <a class="skip-link" href="#main-content">Skip to content</a>
+    {% include 'components/header.html' %}
+    <main id="main-content" class="{% block main_class %}content-shell page-section{% endblock %}" tabindex="-1">
+      {% block content %}{% endblock %}
+    </main>
+    {% include 'components/search_drawer.html' %}
+    {% include 'components/footer.html' %}
+    {% block extra_scripts %}{% endblock %}
+  </body>
+</html>

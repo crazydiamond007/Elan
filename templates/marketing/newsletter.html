@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+{% block title %}Notes from ÉLAN — MAISON ÉLAN{% endblock %}
+{% block content %}
+  <div class="catalog-intro"><p class="eyebrow">Notes from ÉLAN</p><h1 class="page-title">A little inspiration.</h1><p>Try our newsletter signup demonstration using a fictional email address.</p></div>
+  <div class="newsletter-demo-form">
+    {% include 'components/messages.html' %}
+    {% if error %}<div class="form-errors" role="alert"><h2>Please try again later</h2><p>{{ error }}</p></div>{% endif %}
+    {% include 'components/form_errors.html' %}
+    <form method="post" action="{% url 'marketing:newsletter' %}" aria-describedby="demo-signup-help">{% csrf_token %}<div class="filter-field">{{ form.email.label_tag }}{{ form.email }}{{ form.email.errors }}</div><button class="button button-dark" type="submit">Try demo signup {% include 'components/arrow.html' %}</button></form>
+    <p id="demo-signup-help" class="fine-print">Use guest@example.com or another reserved example address. The demo saves it locally and sends no email. Real email addresses are rejected.</p><a class="text-link" href="{% url 'core:demo_information' %}#privacy">Privacy in this demo</a>
+  </div>
+{% endblock %}

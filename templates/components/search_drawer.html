@@ -1,0 +1,20 @@
+<dialog class="drawer search-drawer" id="search-dialog" aria-labelledby="search-drawer-title">
+  <div class="drawer-toolbar">
+    <button type="button" class="drawer-close" data-close-drawer>{% include 'components/icon.html' with icon='close' %}<span>Close</span></button>
+    <a class="utility-link" href="{% url 'cart:bag' %}" aria-label="View shopping bag">{% include 'components/icon.html' with icon='bag' %}</a>
+  </div>
+  <div class="search-drawer-body">
+    <h2 class="visually-hidden" id="search-drawer-title">Search the collection</h2>
+    <form method="get" action="{% url 'catalog:all' %}" class="drawer-search-form" role="search">
+      {% include 'components/icon.html' with icon='search' %}
+      <label for="drawer-query" class="visually-hidden">Search the collection</label>
+      <input id="drawer-query" type="search" name="q" maxlength="80" placeholder="Search pieces…" autocomplete="off">
+      <button type="submit" class="utility-link" aria-label="Submit search">{% include 'components/arrow.html' %}</button>
+    </form>
+    <nav class="search-suggestions" aria-label="Search suggestions"><h3>Suggestions</h3><a href="{% url 'catalog:new' %}">New arrivals</a><a href="{% url 'catalog:all' %}?q=knit">Knitwear</a><a href="{% url 'catalog:accessories' %}">Bags & accessories</a><a href="{% url 'catalog:collections' %}">The collections</a></nav>
+    {% if arrivals %}{% include 'components/search_recommendations.html' with pieces=arrivals %}
+    {% elif related %}{% include 'components/search_recommendations.html' with pieces=related %}
+    {% elif page_obj %}{% include 'components/search_recommendations.html' with pieces=page_obj %}
+    {% else %}<div class="search-discover"><h3>Explore the wardrobe</h3><div class="search-recommendations"><a href="{% url 'catalog:women' %}">{% include 'components/image.html' with image_name='women' image_alt='Neutral tailoring from the women’s editorial.' image_sizes='200px' %}<span>Women</span></a><a href="{% url 'catalog:men' %}">{% include 'components/image.html' with image_name='men' image_alt='Soft wool and tailoring from the men’s editorial.' image_sizes='200px' %}<span>Men</span></a><a href="{% url 'catalog:accessories' %}">{% include 'components/image.html' with image_name='bag' image_alt='An unbranded black tote from the accessories edit.' image_sizes='200px' %}<span>Accessories</span></a></div></div>{% endif %}
+  </div>
+</dialog>

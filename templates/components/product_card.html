@@ -1,0 +1,13 @@
+<article class="product-card">
+  <a class="product-link" href="{{ piece.get_absolute_url }}">
+    <div class="product-media">
+      {% include 'catalog/image.html' with photo=piece.primary_image image_sizes=card_sizes %}
+      {% if not piece.available %}<span class="product-badge">Unavailable</span>{% elif piece.is_signature %}<span class="product-badge">Signature</span>{% endif %}
+    </div>
+    <div class="product-details">
+      {% if card_heading_level == 'h2' %}<h2>{{ piece.name }}</h2>{% else %}<h3>{{ piece.name }}</h3>{% endif %}
+      <p class="product-colour">{{ piece.color_names }}</p>
+      <p class="product-price">{% if piece.price_varies %}From {% endif %}€{{ piece.price|floatformat:'2' }}</p>
+    </div>
+  </a>
+</article>

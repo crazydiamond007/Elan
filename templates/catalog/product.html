@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+{% block title %}{{ piece.name }} — MAISON ÉLAN{% endblock %}
+{% block description %}{{ piece.description|truncatechars:160 }} Fictional product, no real purchases.{% endblock %}
+{% block content %}
+  <nav class="breadcrumbs" aria-label="Breadcrumb"><a href="{% url 'catalog:all' %}">The collection</a><span aria-hidden="true">/</span><a href="{{ piece.category.get_absolute_url }}">{{ piece.category.name }}</a></nav>
+  <div class="product-layout">
+    <div class="product-gallery" aria-label="Product photographs">
+      {% for photo in gallery %}<div class="gallery-image" id="photograph-{{ forloop.counter }}">{% include 'catalog/image.html' with image_sizes='(min-width: 1024px) 55vw, (min-width: 768px) 50vw, 100vw' image_loading=forloop.first|yesno:'eager,lazy' %}</div>
+      {% empty %}{% include 'catalog/image.html' %}{% endfor %}
+      {% if gallery|length > 1 %}<nav class="gallery-navigation" aria-label="Product gallery">{% for photo in gallery %}<a href="#photograph-{{ forloop.counter }}">Photograph {{ forloop.counter }}</a>{% endfor %}</nav>{% endif %}
+    </div>
+    <div class="product-information">
+      <p class="eyebrow">{{ piece.get_department_display }} · {{ piece.category.name }}</p>
+      <h1>{{ piece.name }}</h1>
+      <p class="detail-price">{% if selected %}€{{ selected.price|floatformat:'2' }}{% if selected.compare_at_price %} <span class="original-price"><span class="sr-only">Original price </span><s>€{{ selected.compare_at_price|floatformat:'2' }}</s></span>{% endif %}{% else %}From €{{ piece.price|floatformat:'2' }}{% endif %}</p>
+      <p class="product-description">{{ piece.description }}</p>
+      <form id="variant-selection" class="variant-form" method="post" action="{% url 'cart:add' %}" aria-describedby="selection-help">
+        {% csrf_token %}<input type="hidden" name="product_slug" value="{{ piece.slug }}">
+        {% if selection_form.errors %}<div class="form-errors" role="alert"><h2>Please check your selection</h2>{{ selection_form.non_field_errors }}{% for field in selection_form %}{% for error in field.errors %}<p><a href="#{{ field.id_for_label }}">{{ field.label }}: {{ error }}</a></p>{% endfor %}{% endfor %}</div>{% endif %}
+        <div class="variant-options">{% for field in selection_form %}<div class="form-field">{{ field.label_tag }}{{ field }}{% if field.errors %}{{ field.errors }}{% endif %}</div>{% endfor %}</div>
+        <div class="selection-actions"><button class="text-link" type="submit" formaction="{{ piece.get_absolute_url }}">Update selection {% include 'components/arrow.html' %}</button><a class="text-link" href="{% url 'core:size_guide' %}">Sizing guidance</a></div>
+        <p id="selection-help" class="fine-print">Choose a colour, size and quantity, then update to check the variant’s price and availability.</p>
+      </form>
+      {% if selected %}<p class="availability" role="status">{% if selected.stock %}Available in the demo catalog{% else %}This size is currently unavailable{% endif %}<span>{{ selected.color.name }} / {{ selected.size.name }} · SKU {{ selected.sku }}</span></p>{% endif %}
+      <button class="button button-dark purchase-preview" type="submit" form="variant-selection"{% if not selected or not selected.stock %} disabled{% endif %} aria-describedby="shopping-status">{% if selected and selected.stock %}Add to demo bag{% else %}Currently unavailable{% endif %}</button>
+      <p id="shopping-status" class="fine-print">Fictional product and illustrative price. Your bag leads to a simulated checkout. No real purchases.</p>
+      <div class="product-disclosures">
+        <details open><summary>Description & composition</summary><p>{{ piece.composition|default:'Composition information is being prepared.' }}</p></details>
+        <details><summary>Fit & sizing</summary><p>{{ piece.fit|default:'Sizing information is being prepared.' }}</p></details>
+        <details><summary>Care</summary><p>{{ piece.care|default:'Care information is being prepared.' }}</p><a class="text-link" href="{% url 'core:care' %}">General product care</a></details>
+        <details><summary>About shopping in this demo</summary><p>No payment will be taken and no product will be dispatched.</p><a class="text-link" href="{% url 'core:demo_information' %}#shopping">About this demonstration</a></details>
+      </div>
+    </div>
+  </div>
+  {% if related %}<section class="section-space" aria-labelledby="related-heading"><div class="section-header"><div><p class="eyebrow">In good company</p><h2 class="section-title" id="related-heading">Considered together.</h2></div></div><div class="product-grid product-grid-three">{% for piece in related %}{% include 'components/product_card.html' with card_sizes='(min-width: 768px) 33vw, 50vw' %}{% endfor %}</div></section>{% endif %}
+{% endblock %}

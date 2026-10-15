@@ -1,0 +1,7 @@
+{% if form.errors %}
+  <div class="form-errors" role="alert">
+    <h2>{{ error_title|default:'Please check the form' }}</h2>
+    {{ form.non_field_errors }}
+    {% for field in form %}{% for error in field.errors %}<p>{% if field.is_hidden %}{{ error }}{% else %}<a href="#{{ field.id_for_label }}">{{ field.label }}: {{ error }}</a>{% endif %}</p>{% endfor %}{% endfor %}
+  </div>
+{% endif %}

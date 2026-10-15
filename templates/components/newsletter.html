@@ -1,0 +1,18 @@
+<section class="newsletter-section" id="newsletter" aria-labelledby="newsletter-heading" tabindex="-1">
+  <div class="content-shell newsletter-inner">
+    <div>
+      <h2 id="newsletter-heading" class="section-title">Stay inspired with ÉLAN</h2>
+    </div>
+    <div class="newsletter-preview">
+      <form method="post" action="{% url 'marketing:newsletter' %}" aria-describedby="newsletter-status">
+        {% csrf_token %}
+        <label for="newsletter-email">Demo email address</label>
+        <div class="newsletter-field">
+          <input id="newsletter-email" name="email" type="email" autocomplete="off" placeholder="guest@example.com" maxlength="254" required>
+          <button type="submit">Try signup</button>
+        </div>
+      </form>
+      <p class="fine-print" id="newsletter-status">Demo only. Use a fictional address such as guest@example.com. Stored locally; no email is sent. <a href="{% url 'core:demo_information' %}#privacy">Privacy details</a></p>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,38 @@
+[project]
+name = "maison-elan"
+version = "0.1.0"
+description = "MAISON ÉLAN — a premium fashion demonstration built with Django."
+requires-python = ">=3.13,<3.14"
+dependencies = [
+    "django>=5.2.18,<5.3",
+    "django-csp>=4.0,<5",
+    "gunicorn>=26.2.0,<26.3",
+    "pillow==12.3.0",
+    "psycopg[binary]>=3.3.6,<3.4",
+    "whitenoise>=6.12.0,<7",
+]
+
+[dependency-groups]
+dev = [
+    "pytest>=9.1.1,<10",
+    "pytest-django>=4.14.0,<5",
+    "ruff>=0.17.0,<0.18",
+]
+
+[tool.uv]
+package = false
+
+[tool.pytest.ini_options]
+DJANGO_SETTINGS_MODULE = "config.settings.test"
+testpaths = ["apps", "tests"]
+python_files = ["test_*.py"]
+addopts = "--strict-markers --strict-config --ds=config.settings.test"
+
+[tool.ruff]
+target-version = "py313"
+line-length = 100
+exclude = ["**/migrations/*"]
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "B", "UP", "DJ"]
+

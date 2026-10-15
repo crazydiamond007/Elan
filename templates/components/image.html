@@ -1,0 +1,3 @@
+{% load static metadata %}
+{% editorial_asset image_name as asset %}
+<img src="{% static 'images/editorial/'|add:asset.large.file %}" srcset="{% for source in asset.sources %}{% static 'images/editorial/'|add:source.file %} {{ source.width }}w{% if not forloop.last %}, {% endif %}{% endfor %}" sizes="{{ image_sizes|default:'(min-width: 1024px) 25vw, 50vw' }}" width="{{ asset.large.width }}" height="{{ asset.large.height }}" alt="{{ image_alt }}"{% if image_decorative %} aria-hidden="true"{% endif %} loading="{{ image_loading|default:'lazy' }}" decoding="async" class="{{ image_class|default:'' }}">

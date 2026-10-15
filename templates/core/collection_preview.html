@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% block title %}{{ department_title }} preview — MAISON ÉLAN{% endblock %}
+{% block content %}
+  <div class="page-intro">
+    <p class="eyebrow">Autumn / Winter 26 · Collection preview</p>
+    <h1 class="page-title">{{ department_title }}</h1>
+    <p>A first look at our imagined wardrobe. These fictional pieces and illustrative prices are presented for this demonstration. Shopping is coming soon.</p>
+  </div>
+  <nav class="preview-navigation" aria-label="Collection previews">
+    <a href="{% url 'core:collection_preview' %}"{% if request.resolver_match.url_name == 'collection_preview' %} aria-current="page"{% endif %}>All pieces</a>
+    <a href="{% url 'core:women_preview' %}"{% if request.resolver_match.url_name == 'women_preview' %} aria-current="page"{% endif %}>Women</a>
+    <a href="{% url 'core:men_preview' %}"{% if request.resolver_match.url_name == 'men_preview' %} aria-current="page"{% endif %}>Men</a>
+    <a href="{% url 'core:accessories_preview' %}"{% if request.resolver_match.url_name == 'accessories_preview' %} aria-current="page"{% endif %}>Accessories</a>
+  </nav>
+  <div class="preview-pieces">
+    {% for piece in pieces %}
+      <article class="preview-piece" id="{{ piece.slug }}" tabindex="-1">
+        <div class="preview-piece-image">{% include 'components/image.html' with image_name=piece.image image_alt=piece.name image_sizes='(min-width: 768px) 40vw, 100vw' %}</div>
+        <div class="preview-piece-copy">
+          <p class="eyebrow">Fictional collection preview</p>
+          <h2 class="section-title">{{ piece.name }}</h2>
+          <p class="preview-price">€{{ piece.price|floatformat:'0' }} <span>Illustrative price</span></p>
+          <p>{{ piece.description }}</p>
+          <p class="fine-print">Colour concept: {{ piece.color }}. This piece is not available to purchase.</p>
+          <a class="text-link" href="{% url 'core:demo_information' %}#shopping">About shopping in this demo {% include 'components/arrow.html' %}</a>
+        </div>
+      </article>
+    {% endfor %}
+  </div>
+{% endblock %}

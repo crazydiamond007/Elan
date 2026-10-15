@@ -1,0 +1,8 @@
+{% extends 'base.html' %}
+{% block canonical %}{% endblock %}
+{% block social_metadata %}{% endblock %}
+{% block content %}
+  <h1 class="font-editorial text-4xl leading-tight">{% block error_heading %}{% endblock %}</h1>
+  <p class="mt-6 max-w-lg leading-relaxed">{% block error_message %}{% endblock %}</p>
+  <a class="mt-8 inline-flex min-h-11 items-center underline underline-offset-4" href="{% url 'core:home' %}">Return to MAISON ÉLAN</a>
+{% endblock %}

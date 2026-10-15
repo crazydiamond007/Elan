@@ -1,0 +1,5 @@
+{% if photo %}
+  <img class="product-image" src="{{ photo.medium.url }}" srcset="{{ photo.small.url }} {{ photo.small_width }}w{% if photo.medium_width != photo.small_width %}, {{ photo.medium.url }} {{ photo.medium_width }}w{% endif %}{% if photo.width != photo.medium_width %}, {{ photo.image.url }} {{ photo.width }}w{% endif %}" sizes="{{ image_sizes|default:'(min-width: 768px) 50vw, 100vw' }}" width="{{ photo.width }}" height="{{ photo.height }}" alt="{{ photo.alt_text }}" loading="{{ image_loading|default:'lazy' }}" decoding="async"{% if image_loading == 'eager' %} fetchpriority="high"{% endif %}>
+{% else %}
+  <div class="image-placeholder"><span>Photography coming soon</span></div>
+{% endif %}
