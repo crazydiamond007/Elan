@@ -136,7 +136,8 @@ def test_pagination_is_bounded_and_stable(client):
     response = client.get(reverse("catalog:all"))
     assert len(response.context["page_obj"]) == 12
     assert response.context["page_obj"].paginator.count == 15
-    assert b"Next page" in response.content
+    assert b'aria-label="Go to page 2"' in response.content
+    assert b'aria-label="Page 1, current page"' in response.content
     assert len(client.get(reverse("catalog:all"), {"page": 2}).context["page_obj"]) == 3
 
 
@@ -244,9 +245,9 @@ def test_product_content_is_autoescaped(client):
 def test_listing_and_details_have_bounded_queries(client, django_assert_num_queries):
     with django_assert_num_queries(7):
         assert client.get(reverse("catalog:all")).status_code == 200
-    with django_assert_num_queries(10):
+    with django_assert_num_queries(11):
         assert client.get("/products/sculpted-coat/").status_code == 200
-    with django_assert_num_queries(7):
+    with django_assert_num_queries(8):
         assert client.get("/products/sculpted-coat/").status_code == 200
     with django_assert_num_queries(6):
         assert client.get(reverse("core:home")).status_code == 200
@@ -269,6 +270,56 @@ def test_seed_is_idempotent_and_preserves_admin_changes(settings, tmp_path):
     assert Product.objects.count() == 4
     assert Variant.objects.count() == 13
     assert set(ProductImage.objects.values_list("image", flat=True)) == initial_paths
+
+
+def test_curated_styling_shows_only_public_companions(client):
+    coat = Product.objects.get(slug="sculpted-coat")
+    knit = Product.objects.get(slug="fine-wool-knit")
+    tote = Product.objects.get(slug="everyday-tote")
+    coat.styled_with.add(knit, tote, coat)
+    Product.objects.filter(pk=knit.pk).update(status="draft")
+    response = client.get(coat.get_absolute_url())
+    assert response.status_code == 200
+    assert list(response.context["related"]) == [tote]
+    assert response.context["curated_styling"] is True
+    assert b"Wear it with." in response.content
+
+
+def test_selection_payload_uses_active_database_variants(client):
+    product = Product.objects.get(slug="sculpted-coat")
+    product.variants.filter(size__slug="m").update(price="321.75", stock=2)
+    product.variants.filter(size__slug="xs").update(is_active=False)
+    response = client.get(product.get_absolute_url())
+    variants = response.context["selection_options"]["variants"]
+    assert not any(item["size"] == "xs" for item in variants)
+    medium = next(item for item in variants if item["size"] == "m")
+    assert medium["price"] == "321.75"
+    assert medium["maximum"] == 2
+    assert next(item for item in variants if item["size"] == "l")["maximum"] == 0
+
+
+def test_flagship_seed_preserves_images_curation_and_inventory(settings, tmp_path):
+    sources = tmp_path / "assets/editorial/sources"
+    for name in ("coat-styled", "coat-back", "coat-detail"):
+        (sources / f"{name}.webp").write_bytes((sources / "coat.webp").read_bytes())
+    settings.BASE_DIR = tmp_path
+    coat = Product.objects.get(slug="sculpted-coat")
+    original = coat.images.first()
+    original.position = 2
+    original.alt_text = "Owner's photograph"
+    original.save()
+    coat.styled_with.add(Product.objects.get(slug="everyday-tote"))
+    coat.variants.update(stock=19, price="333.33")
+    call_command("seed_editorial", verbosity=0)
+    paths = set(coat.images.values_list("image", flat=True))
+    call_command("seed_editorial", verbosity=0)
+    original.refresh_from_db()
+    assert original.alt_text == "Owner's photograph"
+    assert original.position == 2
+    assert set(coat.images.values_list("image", flat=True)) == paths
+    assert coat.images.count() == 3
+    assert list(coat.styled_with.values_list("slug", flat=True)) == ["everyday-tote"]
+    assert coat.variants.filter(stock=19, price="333.33").count() == 4
 
 
 def test_extended_seed_adds_image_matched_products_without_resetting_edits(settings, tmp_path):

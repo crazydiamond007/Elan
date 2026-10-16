@@ -1,5 +1,14 @@
 # Design direction
 
+**Latest pagination/title refinement, 2026-10-16:** [numbered pagination and page titles](numbered-pagination-validation.md)
+documents the owner-requested outlined panel, Previous/Next pills, active numbered circles and
+separate page status. Browser and social title separators now use a vertical bar rather than an em dash.
+
+**Latest refinement — 2026-10-15:** the [flagship design review](flagship-design-review.md)
+adds a two-level typographic signature, a four-view coat gallery, enhanced colour/size selection
+and Admin-curated companion products. The established palette, homepage photography, drawers
+and footer remain the foundation. Earlier notes describe their respective implementation dates.
+
 **Current header/footer — 2026-10-15:** the owner's supplied screenshots guide the focused
 [header, drawer and footer refinement](header-footer-validation.md). The restored warm homepage,
 typography and fourteen-product catalog remain, with a single-row white header, menu/search drawers,

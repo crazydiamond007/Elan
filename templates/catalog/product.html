@@ -1,27 +1,33 @@
 {% extends 'base.html' %}
-{% block title %}{{ piece.name }} — MAISON ÉLAN{% endblock %}
+{% load static %}
+{% block extra_head %}<script src="{% static 'js/product.js' %}" defer></script>{% endblock %}
+{% block title %}{{ piece.name }} | MAISON ÉLAN{% endblock %}
 {% block description %}{{ piece.description|truncatechars:160 }} Fictional product, no real purchases.{% endblock %}
 {% block content %}
   <nav class="breadcrumbs" aria-label="Breadcrumb"><a href="{% url 'catalog:all' %}">The collection</a><span aria-hidden="true">/</span><a href="{{ piece.category.get_absolute_url }}">{{ piece.category.name }}</a></nav>
-  <div class="product-layout">
-    <div class="product-gallery" aria-label="Product photographs">
-      {% for photo in gallery %}<div class="gallery-image" id="photograph-{{ forloop.counter }}">{% include 'catalog/image.html' with image_sizes='(min-width: 1024px) 55vw, (min-width: 768px) 50vw, 100vw' image_loading=forloop.first|yesno:'eager,lazy' %}</div>
-      {% empty %}{% include 'catalog/image.html' %}{% endfor %}
-      {% if gallery|length > 1 %}<nav class="gallery-navigation" aria-label="Product gallery">{% for photo in gallery %}<a href="#photograph-{{ forloop.counter }}">Photograph {{ forloop.counter }}</a>{% endfor %}</nav>{% endif %}
+  <div class="product-layout product-layout-editorial">
+    <div class="product-gallery" aria-label="Product photographs" data-product-gallery>
+      <div class="gallery-stage">
+        {% for photo in gallery_all %}<a class="gallery-image" id="photograph-{{ forloop.counter }}" href="{{ photo.image.url }}" data-gallery-photo data-color="{{ photo.color.slug|default:'' }}"{% if selected and photo.color_id and photo.color_id != selected.color_id %} hidden{% endif %} aria-label="Enlarge photograph: {{ photo.alt_text }}">{% include 'catalog/image.html' with image_sizes='(min-width: 1024px) 52vw, (min-width: 768px) 50vw, 100vw' image_loading=forloop.first|yesno:'eager,lazy' %}<span class="gallery-enlarge" aria-hidden="true">{% include 'components/icon.html' with icon='search' %} Explore detail</span></a>{% endfor %}
+        <div data-gallery-empty{% if gallery %} hidden{% endif %}>{% include 'catalog/image.html' %}</div>
+      </div>
+      {% if gallery_all %}<nav class="gallery-navigation" aria-label="Product gallery">{% for photo in gallery_all %}<a class="gallery-thumbnail" href="#photograph-{{ forloop.counter }}" data-gallery-thumbnail data-color="{{ photo.color.slug|default:'' }}"{% if selected and photo.color_id and photo.color_id != selected.color_id %} hidden{% endif %} aria-label="View photograph {{ forloop.counter }}: {{ photo.alt_text }}">{% include 'catalog/image.html' with image_sizes='72px' %}</a>{% endfor %}</nav>{% endif %}
+      <p class="gallery-caption"><span>Form, texture, proportion.</span><span data-gallery-counter>{{ gallery|length }} photograph{{ gallery|length|pluralize }}</span></p>
     </div>
     <div class="product-information">
-      <p class="eyebrow">{{ piece.get_department_display }} · {{ piece.category.name }}</p>
+      <p class="eyebrow">The ÉLAN wardrobe / {{ piece.get_department_display }}</p>
       <h1>{{ piece.name }}</h1>
-      <p class="detail-price">{% if selected %}€{{ selected.price|floatformat:'2' }}{% if selected.compare_at_price %} <span class="original-price"><span class="sr-only">Original price </span><s>€{{ selected.compare_at_price|floatformat:'2' }}</s></span>{% endif %}{% else %}From €{{ piece.price|floatformat:'2' }}{% endif %}</p>
+      <p class="detail-price" data-detail-price>{% if selected %}€{{ selected.price|floatformat:'2' }}{% if selected.compare_at_price %} <span class="original-price"><span class="sr-only">Original price </span><s>€{{ selected.compare_at_price|floatformat:'2' }}</s></span>{% endif %}{% else %}From €{{ piece.price|floatformat:'2' }}{% endif %}</p>
       <p class="product-description">{{ piece.description }}</p>
       <form id="variant-selection" class="variant-form" method="post" action="{% url 'cart:add' %}" aria-describedby="selection-help">
         {% csrf_token %}<input type="hidden" name="product_slug" value="{{ piece.slug }}">
         {% if selection_form.errors %}<div class="form-errors" role="alert"><h2>Please check your selection</h2>{{ selection_form.non_field_errors }}{% for field in selection_form %}{% for error in field.errors %}<p><a href="#{{ field.id_for_label }}">{{ field.label }}: {{ error }}</a></p>{% endfor %}{% endfor %}</div>{% endif %}
-        <div class="variant-options">{% for field in selection_form %}<div class="form-field">{{ field.label_tag }}{{ field }}{% if field.errors %}{{ field.errors }}{% endif %}</div>{% endfor %}</div>
+        <div data-visual-options hidden></div>
+        <div class="variant-options">{% for field in selection_form %}<div class="form-field"{% if field.name != 'quantity' %} data-native-option{% endif %}>{{ field.label_tag }}{{ field }}{% if field.errors %}{{ field.errors }}{% endif %}</div>{% endfor %}</div>
         <div class="selection-actions"><button class="text-link" type="submit" formaction="{{ piece.get_absolute_url }}">Update selection {% include 'components/arrow.html' %}</button><a class="text-link" href="{% url 'core:size_guide' %}">Sizing guidance</a></div>
         <p id="selection-help" class="fine-print">Choose a colour, size and quantity, then update to check the variant’s price and availability.</p>
       </form>
-      {% if selected %}<p class="availability" role="status">{% if selected.stock %}Available in the demo catalog{% else %}This size is currently unavailable{% endif %}<span>{{ selected.color.name }} / {{ selected.size.name }} · SKU {{ selected.sku }}</span></p>{% endif %}
+      <p class="availability" role="status" aria-live="polite" data-availability>{% if selected %}{% if selected.stock %}Available in the demo catalog{% else %}This size is currently unavailable{% endif %}<span>{{ selected.color.name }} / {{ selected.size.name }} · SKU {{ selected.sku }}</span>{% else %}Choose an available colour and size.{% endif %}</p>
       <button class="button button-dark purchase-preview" type="submit" form="variant-selection"{% if not selected or not selected.stock %} disabled{% endif %} aria-describedby="shopping-status">{% if selected and selected.stock %}Add to demo bag{% else %}Currently unavailable{% endif %}</button>
       <p id="shopping-status" class="fine-print">Fictional product and illustrative price. Your bag leads to a simulated checkout. No real purchases.</p>
       <div class="product-disclosures">
@@ -32,5 +38,11 @@
       </div>
     </div>
   </div>
-  {% if related %}<section class="section-space" aria-labelledby="related-heading"><div class="section-header"><div><p class="eyebrow">In good company</p><h2 class="section-title" id="related-heading">Considered together.</h2></div></div><div class="product-grid product-grid-three">{% for piece in related %}{% include 'components/product_card.html' with card_sizes='(min-width: 768px) 33vw, 50vw' %}{% endfor %}</div></section>{% endif %}
+  {% if related %}<section class="section-space" aria-labelledby="related-heading"><div class="section-header"><div><p class="eyebrow">{% if curated_styling %}The complete silhouette{% else %}More from the wardrobe{% endif %}</p><h2 class="section-title" id="related-heading">{% if curated_styling %}Wear it with.{% else %}Explore also.{% endif %}</h2></div></div><div class="product-grid product-grid-three">{% for piece in related %}{% include 'components/product_card.html' with card_sizes='(min-width: 768px) 33vw, 50vw' %}{% endfor %}</div></section>{% endif %}
+  {{ selection_options|json_script:'product-options' }}
+  <dialog class="image-viewer" aria-label="Enlarged product photograph" data-image-viewer>
+    <div class="viewer-toolbar"><span data-viewer-count></span><button class="drawer-close" type="button" data-viewer-close>{% include 'components/icon.html' with icon='close' %}<span>Close</span></button></div>
+    <figure><img alt="" data-viewer-image><figcaption data-viewer-caption></figcaption></figure>
+    <div class="viewer-controls"><button type="button" data-viewer-previous aria-label="Previous photograph">←</button><button type="button" data-viewer-zoom aria-pressed="false">View full size</button><button type="button" data-viewer-next aria-label="Next photograph">→</button></div>
+  </dialog>
 {% endblock %}

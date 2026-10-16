@@ -61,6 +61,9 @@ def listing(request, section="all", slug=None):
         "catalog/listing.html",
         {
             "page_obj": page,
+            "page_numbers": list(
+                page.paginator.get_elided_page_range(page.number, on_each_side=1, on_ends=1)
+            ),
             "title": title,
             "description": description,
             "section": section,
@@ -116,12 +119,30 @@ def product(request, slug):
         for image in piece.display_images
         if image.color_id is None or selected is None or image.color_id == selected.color_id
     ]
+    styled_ids = list(piece.styled_with.values_list("pk", flat=True))
     related = (
-        Product.objects.public()
-        .for_display()
-        .filter(category=piece.category)
-        .exclude(pk=piece.pk)[:3]
+        Product.objects.public().for_display().filter(pk__in=styled_ids)
+        if styled_ids
+        else Product.objects.public().for_display().filter(category=piece.category)
     )
+    related = related.exclude(pk=piece.pk)[:3]
+    selection_options = {
+        "colors": [
+            {"value": value, "label": label} for value, label in form.fields["color"].choices
+        ],
+        "sizes": [{"value": value, "label": label} for value, label in form.fields["size"].choices],
+        "variants": [
+            {
+                "color": variant.color.slug,
+                "size": variant.size.slug,
+                "price": f"{variant.price:.2f}",
+                "original": f"{variant.compare_at_price:.2f}" if variant.compare_at_price else "",
+                "maximum": min(variant.stock, 10),
+                "sku": variant.sku,
+            }
+            for variant in variants
+        ],
+    }
     return render(
         request,
         "catalog/product.html",
@@ -130,8 +151,11 @@ def product(request, slug):
             "selection_form": form,
             "selected": selected,
             "gallery": images,
+            "gallery_all": piece.display_images,
+            "selection_options": selection_options,
             "related": related,
-            "social_title": piece.name + " — MAISON ÉLAN",
+            "curated_styling": bool(styled_ids),
+            "social_title": piece.name + " | MAISON ÉLAN",
             "social_description": piece.description[:160],
             "social_image": urljoin(settings.SITE_URL, images[0].image.url) if images else None,
             "structured_product": piece,

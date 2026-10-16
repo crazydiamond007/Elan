@@ -151,6 +151,17 @@ The owner's subsequent screenshots guide the current [header/footer refinement](
 single-row navigation, separate menu/search drawers, a footer newsletter and serif link columns,
 with the large footer wordmark removed. The restored homepage artwork and expanded catalog are retained.
 
+The subsequent [flagship refinement](docs/flagship-design-review.md) introduces the compact ÉLAN
+wordmark, a four-photograph coat gallery with enlargement, enhanced size/colour selection and
+Admin-curated outfits. After migrations and the base catalog seed, add its optional gallery with:
+
+```bash
+uv run --locked --env-file .env manage.py seed_editorial
+```
+
+This preserves existing photographs, curation, prices and stock. Review `/products/sculpted-coat/`;
+later catalog and shopping refinements await visual review.
+
 ## Checks
 
 ```bash

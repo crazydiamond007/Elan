@@ -1,5 +1,25 @@
 # Asset provenance
 
+## Catalog landscape — 2026-10-16
+
+`assets/editorial/sources/catalog-interlude.webp` is an original built-in imagegen photograph made
+for the catalog's horizontal editorial panel, with no reference images. The complete prompt, mode
+and processing details are in [its provenance record](../assets/editorial/catalog-interlude-provenance.json).
+Four metadata-free responsive WebPs live in `static/images/editorial/`; the original portrait asset
+is preserved. See [catalog panel validation](catalog-panel-validation.md) for the layout correction.
+
+## Flagship garment views — 2026-10-15
+
+Three additional original images use our existing generated coat master as a garment reference:
+`coat-styled.webp`, `coat-back.webp` and `coat-detail.webp` in `assets/editorial/sources/`.
+The built-in imagegen tool produced these fictional views. Their final prompts and reference path
+are in [flagship provenance](../assets/editorial/flagship-provenance.json). No external brand assets
+were supplied. Pillow saved metadata-free quality-90 WebP masters; the existing managed-media
+pipeline generates responsive runtime copies. Earlier library counts below are historical.
+
+The two-level typographic wordmark uses the existing OFL fonts and project-authored HTML/CSS.
+No reference-brand logo or proprietary font was imported.
+
 Phase 3 includes eight generated editorial assets, self-hosted OFL fonts and a hand-drawn SVG
 favicon. No reference-site photography, logos or Pinterest photographs were imported.
 

@@ -124,6 +124,13 @@ class Product(models.Model):
     fit = models.TextField(blank=True)
     category = models.ForeignKey(Category, on_delete=models.PROTECT, related_name="products")
     collections = models.ManyToManyField(Collection, blank=True, related_name="products")
+    styled_with = models.ManyToManyField(
+        "self",
+        symmetrical=False,
+        blank=True,
+        related_name="styled_in",
+        help_text="Curated companion pieces for this product; only public products are shown.",
+    )
     department = models.CharField(max_length=15, choices=Department, default=Department.WOMEN)
     status = models.CharField(max_length=12, choices=Status, default=Status.DRAFT)
     published_at = models.DateTimeField(null=True, blank=True)

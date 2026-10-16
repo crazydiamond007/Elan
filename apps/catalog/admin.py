@@ -52,7 +52,17 @@ class ProductAdmin(admin.ModelAdmin):
         (None, {"fields": ("name", "slug", "description")}),
         (
             "Product details",
-            {"fields": ("composition", "care", "fit", "department", "category", "collections")},
+            {
+                "fields": (
+                    "composition",
+                    "care",
+                    "fit",
+                    "department",
+                    "category",
+                    "collections",
+                    "styled_with",
+                )
+            },
         ),
         (
             "Publication & merchandising",

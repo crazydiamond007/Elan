@@ -1,0 +1,23 @@
+{
+  "created": "2026-10-15",
+  "mode": "built-in imagegen",
+  "reference": "assets/editorial/sources/coat.webp",
+  "purpose": "Original alternate views of the fictional Sculpted Wool Coat",
+  "assets": [
+    {
+      "asset": "coat-styled",
+      "prompt": "Use case: product-mockup. Asset type: original fashion e-commerce gallery portrait photograph 3:4. Input image is garment identity reference. Photograph the EXACT charcoal melange long sculpted wool coat from the reference, worn by a fictional adult female model standing naturally in a pale limestone architectural courtyard. Front three-quarter full body, coat closed, cream crewneck and black straight trousers barely showing, understated black flat shoes. Same enormous notched lapels, dropped rounded shoulders, softly curved balloon sleeves, two dark front buttons at waist, diagonal welt pockets, straight long mid-calf hem, no belt or additional buttons. Preserve the exact charcoal colour, dense brushed texture, seams, proportions and construction. Soft indirect autumn daylight, realistic fashion photography, natural skin texture, matte restrained colour grade, entire coat and feet in frame. No lettering, logos, watermarks or borders.",
+      "master": "assets/editorial/sources/coat-styled.webp"
+    },
+    {
+      "asset": "coat-back",
+      "prompt": "Use case: product-mockup. Asset type: original fashion e-commerce gallery portrait photograph 3:4. Input image is exact garment identity reference. Photograph the SAME charcoal melange long sculpted wool coat from directly BEHIND, ghost mannequin with no model or hanger, centered entirely visible with ample margins on matching warm ivory studio background. Preserve charcoal dense brushed wool, dropped rounded shoulders, sculpted curved balloon sleeves, long mid-calf straight hem, collar shape and original garment proportions. Back has a clean central seam and modest center-back hem vent, no belt, no invented branding, no buttons on the back. Diffuse daylight with soft grounding shadow. Photorealistic apparel catalog quality. No lettering, logos, watermarks, borders or additional objects.",
+      "master": "assets/editorial/sources/coat-back.webp"
+    },
+    {
+      "asset": "coat-detail",
+      "prompt": "Use case: product-mockup. Asset type: original fashion e-commerce gallery portrait photograph 3:4. Input image is exact garment reference. A tight tactile macro photograph of the SAME charcoal melange sculpted wool coat showing the overlapping notched lapel edge, dense brushed charcoal wool fibers, one of its existing dark matte four-hole front buttons and subtle seam stitching. Crop from the original front construction; preserve identical dark charcoal colour, button design, lapel shape and material character. Warm ivory unobtrusive background at edge, soft raking studio daylight, natural restrained editorial photography with very clear tactile texture. No model, extra buttons, logos, text, watermarks or borders.",
+      "master": "assets/editorial/sources/coat-detail.webp"
+    }
+  ]
+}

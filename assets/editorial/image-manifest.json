@@ -51,6 +51,32 @@
       "bytes": 82836
     }
   ],
+  "catalog-interlude": [
+    {
+      "file": "catalog-interlude-480.webp",
+      "width": 480,
+      "height": 320,
+      "bytes": 20330
+    },
+    {
+      "file": "catalog-interlude-800.webp",
+      "width": 800,
+      "height": 533,
+      "bytes": 51712
+    },
+    {
+      "file": "catalog-interlude-1200.webp",
+      "width": 1200,
+      "height": 800,
+      "bytes": 99568
+    },
+    {
+      "file": "catalog-interlude-1536.webp",
+      "width": 1536,
+      "height": 1024,
+      "bytes": 145260
+    }
+  ],
   "coastal-campaign": [
     {
       "file": "coastal-campaign-800.webp",

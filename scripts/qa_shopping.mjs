@@ -92,7 +92,7 @@ try {
     await page.goto(new URL("/bag/", baseUrl).href);
     await inspect(page, "empty-bag", width);
     await page.goto(new URL("/products/sculpted-coat/", baseUrl).href);
-    await page.getByLabel("Size", { exact: true }).selectOption("m");
+    await page.getByRole("radio", { name: "M", exact: true }).check();
     await page.getByLabel("Quantity", { exact: true }).fill("2");
     await page
       .getByRole("button", { name: "Add to demo bag", exact: true })

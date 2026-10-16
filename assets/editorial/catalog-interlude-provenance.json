@@ -1,0 +1,9 @@
+{
+  "created": "2026-10-16",
+  "mode": "built-in imagegen",
+  "purpose": "Original landscape image for the catalog editorial panel",
+  "reference_images": [],
+  "prompt": "Use case: photorealistic-natural. Asset type: original premium fashion e-commerce editorial interlude photograph, LANDSCAPE 3:2 composition. Primary request: a beautifully composed warm architectural menswear photograph that will fill the left half of a horizontal split editorial panel. Scene: quiet limestone courtyard, pale stone bench and broad simple plaster wall, an understated olive tree shadow at the edge. Subject: ONE fictional adult male fashion model with natural dark short hair, wearing a soft chocolate brown wool overshirt unbuttoned over an ivory crewneck knit, sand tailored straight trousers and understated dark brown loafers. Full body from the top of his head to the soles of both shoes completely visible. He stands naturally beside the bench, gazing slightly away, one relaxed hand in his trouser pocket, centered horizontally. Composition: camera stepped back, generous clear stone space ABOVE HIS HEAD and BELOW HIS FEET; entire person occupies at most 72 percent of image height and the central 45 percent of its width. The image must remain well composed when lightly cropped at the top/bottom for a wide desktop panel or cropped at the sides for a square mobile panel. No close-up, no torso-only crop. Style: sophisticated original fashion editorial photography, realistic anatomy and tactile wool, restrained matte 35mm grain, warm neutral cream/limestone/chocolate palette, soft natural side daylight, elegant stillness. No other people, no text, no logos, no watermark, no graphics, no frame, no celebrity likeness.",
+  "master": "assets/editorial/sources/catalog-interlude.webp",
+  "processing": "Metadata-free quality-94 WebP master; proportional responsive WebP derivatives at 480, 800, 1200 and 1536 pixels, quality 78. No scene edits."
+}

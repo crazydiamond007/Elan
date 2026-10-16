@@ -27,7 +27,12 @@ def main() -> None:
         with Image.open(source) as original:
             image = ImageOps.exif_transpose(original).convert("RGB")
             is_campaign = source.stem in {"hero", "coastal-campaign"}
-            widths = (800, 1280, 1600) if is_campaign else (320, 480, 720, 960)
+            if is_campaign:
+                widths = (800, 1280, 1600)
+            elif source.stem == "catalog-interlude":
+                widths = (480, 800, 1200, 1536)
+            else:
+                widths = (320, 480, 720, 960)
             manifest[source.stem] = [save_width(image, source.stem, width) for width in widths]
             if is_campaign:
                 # Art-directed mobile crop keeps both people visible; desktop copy moves below it.

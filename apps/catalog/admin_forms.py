@@ -17,6 +17,7 @@ class ProductAdminForm(forms.ModelForm):
             "department",
             "category",
             "collections",
+            "styled_with",
             "status",
             "published_at",
             "is_featured",
@@ -24,6 +25,7 @@ class ProductAdminForm(forms.ModelForm):
         )
         widgets = {
             "collections": forms.CheckboxSelectMultiple,
+            "styled_with": forms.CheckboxSelectMultiple,
             "published_at": forms.SplitDateTimeWidget(
                 date_format="%Y-%m-%d",
                 time_format="%H:%M:%S",
@@ -34,6 +36,8 @@ class ProductAdminForm(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
+        if self.instance.pk:
+            self.fields["styled_with"].queryset = Product.objects.exclude(pk=self.instance.pk)
         widget = self.fields["published_at"].widget
         if hasattr(widget, "widgets"):
             for control, label in zip(

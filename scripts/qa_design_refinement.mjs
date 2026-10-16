@@ -31,7 +31,7 @@ try {
   );
   assert.equal(await page.locator(".product-card").count(), 12);
   assert.equal(await page.locator(".catalog-story").count(), 1);
-  await page.getByRole("link", { name: "Next page", exact: true }).click();
+  await page.getByRole("link", { name: "Next", exact: true }).click();
   assert.equal(await page.locator(".product-card").count(), 2);
   assert.equal(await page.locator(".catalog-story").count(), 0);
   report.checks.push(
