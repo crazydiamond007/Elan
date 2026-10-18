@@ -80,6 +80,21 @@ def test_current_database_prices_are_used_each_time(client):
     assert client.get(reverse("cart:bag")).context["bag"].subtotal == Decimal("325.25")
 
 
+def test_added_confirmation_and_header_quantity_follow_the_session(client):
+    assert add(client, quantity=2).status_code == 302
+    response = client.get(reverse("cart:bag"))
+    assert response.context["bag_quantity"] == 2
+    assert b"Added to your demo bag: The Sculpted Wool Coat" in response.content
+    assert b"Charcoal / M" in response.content
+    assert b"Quantity 2" in response.content
+    assert client.get("/").context["bag_quantity"] == 2
+    assert Client().get("/").context["bag_quantity"] == 0
+    session = client.session
+    session["cart"] = {"1": True, "bad": 99}
+    session.save()
+    assert client.get("/").context["bag_quantity"] == 0
+
+
 def test_update_cannot_add_an_item_not_already_in_the_bag(client):
     variant = Variant.objects.first()
     assert (

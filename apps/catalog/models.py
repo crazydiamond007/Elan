@@ -28,6 +28,15 @@ class Category(models.Model):
         return reverse("catalog:category", args=[self.slug])
 
 
+class CollectionQuerySet(models.QuerySet):
+    def for_display(self):
+        return self.select_related("cover_image").annotate(
+            cover_is_public=Exists(
+                Product.objects.public().filter(pk=OuterRef("cover_image__product_id"))
+            )
+        )
+
+
 class Collection(models.Model):
     name = models.CharField(max_length=100)
     slug = models.SlugField(unique=True)
@@ -35,6 +44,15 @@ class Collection(models.Model):
     is_active = models.BooleanField(default=True)
     is_featured = models.BooleanField(default=False)
     position = models.PositiveSmallIntegerField(default=0)
+    cover_image = models.ForeignKey(
+        "ProductImage",
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+        related_name="collection_covers",
+        help_text="Use a managed photograph from a public product.",
+    )
+    objects = CollectionQuerySet.as_manager()
 
     class Meta:
         ordering = ("position", "name")
@@ -174,7 +192,35 @@ class Product(models.Model):
 
     @property
     def primary_image(self):
-        return next(iter(self.display_images), None)
+        colors = {variant.color_id for variant in self.display_variants}
+        return next(
+            (
+                photo
+                for photo in self.display_images
+                if photo.color_id is None or photo.color_id in colors
+            ),
+            None,
+        )
+
+    @property
+    def alternate_image(self):
+        primary = self.primary_image
+        if primary is None:
+            return None
+        return next(
+            (
+                photo
+                for photo in self.display_images
+                if photo.pk != primary.pk
+                and (photo.color_id is None or photo.color_id == primary.color_id)
+            ),
+            None,
+        )
+
+    @property
+    def original_price(self):
+        variant = min(self.display_variants, key=lambda item: item.price, default=None)
+        return variant.compare_at_price if variant else None
 
     @property
     def price(self):

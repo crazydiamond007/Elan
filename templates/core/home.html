@@ -52,13 +52,13 @@
     <p class="section-note">Fictional products · Illustrative prices · No real purchases</p>
   </section>
 
-  <section class="campaign" aria-labelledby="campaign-heading">
-    <div class="campaign-image">{% include 'components/image.html' with image_name='women' image_alt='Soft autumn light falls across a taupe coat and ivory knit.' image_height='1440' image_sizes='(min-width: 768px) 50vw, 100vw' %}</div>
+  <section class="campaign{% if campaign %} campaign-editorial{% endif %}" aria-labelledby="campaign-heading">
+    <div class="campaign-image">{% if campaign %}{% include 'catalog/image.html' with photo=campaign.cover_image image_sizes='(min-width: 768px) 50vw, 100vw' %}{% else %}{% include 'components/image.html' with image_name='women' image_alt='Soft autumn light falls across a taupe coat and ivory knit.' image_height='1440' image_sizes='(min-width: 768px) 50vw, 100vw' %}{% endif %}</div>
     <div class="campaign-copy">
       <p class="eyebrow">Autumn / Winter 26 · Chapter I</p>
-      <h2 id="campaign-heading">A softer<br><em>season.</em></h2>
-      <p>A slower rhythm. A different light. Discover a study in soft structure, warm neutrals and the pleasure of dressing simply.</p>
-      <a class="text-link" href="{% url 'catalog:collections' %}">Discover the autumn edit {% include 'components/arrow.html' %}</a>
+      <h2 id="campaign-heading">{% if campaign %}{{ campaign.name }}{% else %}A softer<br><em>season.</em>{% endif %}</h2>
+      <p>{% if campaign %}{{ campaign.description }}{% else %}A slower rhythm. A different light. Discover a study in soft structure, warm neutrals and the pleasure of dressing simply.{% endif %}</p>
+      <a class="text-link" href="{% if campaign %}{{ campaign.get_absolute_url }}{% else %}{% url 'catalog:collections' %}{% endif %}">Discover the autumn edit {% include 'components/arrow.html' %}</a>
     </div>
   </section>
 
@@ -73,7 +73,7 @@
   </section>
 
   <section class="content-shell section-space story-section" aria-labelledby="story-heading">
-    <div class="story-image">{% include 'components/image.html' with image_name='atelier' image_alt='Hands rest beside grey wool on an oak cutting table in a softly lit atelier.' image_height='1200' image_sizes='(min-width: 768px) 45vw, 100vw' %}</div>
+    <div class="story-image">{% include 'components/image.html' with image_name='atelier-v2' image_alt='A taupe wool coat on a linen dress form beside folded fabric in a sunlit atelier.' image_sizes='(min-width: 768px) 45vw, 100vw' %}</div>
     <div class="story-copy">
       <p class="eyebrow">Our story</p>
       <h2 class="section-title" id="story-heading">Considered, down<br>to the last detail.</h2>

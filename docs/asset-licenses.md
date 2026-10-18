@@ -1,5 +1,39 @@
 # Asset provenance
 
+## Story photograph replacement — 2026-10-17
+
+`assets/editorial/sources/atelier-v2.webp` replaces the hands-at-the-cutting-table photograph in the
+homepage story section and Our Story page. This original built-in imagegen photograph depicts an
+unbranded taupe coat on a linen dress form in an imagined sunlit atelier. No reference images or
+external brand assets were supplied. The full final prompt and processing details are recorded in
+[atelier replacement provenance](../assets/editorial/atelier-v2-provenance.json).
+
+The RGB quality-94 master is metadata-free; proportional quality-78 WebP files at 320, 480, 720 and
+960px are versioned in `static/images/editorial/` and recorded in the image manifest. The original
+`atelier.webp` master and derivatives remain preserved. Alt text describes the new subject; the
+existing responsive frame, loading policy and surrounding story copy remain appropriate.
+
+Validation: **31 editorial/public-page tests passed in 1.87s**. Chromium homepage checks passed at
+1440/1024/768/390/320px with no overflow, browser errors or reported axe violations. Both story
+placements loaded the new image at 1440/390/320px with matching source/frame ratios; desktop/mobile
+captures were visually reviewed. Production hashed static collection, Ruff and `git diff --check`
+passed. Reports/captures are in ignored `.qa/atelier-v2/chromium/`. No new tests or dependencies.
+
+## Signature gallery expansion — 2026-10-17
+
+Fifteen original built-in imagegen photographs extend the existing fictional knit, tote, wool
+overshirt, tailored blazer and merino cardigan. Each has a styled, back and material-detail view.
+The existing project-generated front photograph was the sole garment reference for each set;
+no reference-brand photography, logos or fonts were supplied. All prompts, reference paths and
+master paths are in [merchandising provenance](../assets/editorial/merchandising-provenance.json).
+
+The metadata-free quality-94 WebP masters live at
+`assets/editorial/sources/{knit,bag,overshirt,tailored-blazer,merino-cardigan}-{styled,back,detail}.webp`.
+`seed_merchandising` copies them through the existing validated, UUID-named 480/960/1600px managed
+media pipeline. Runtime media remains ignored. The new knit and blazer styled views also serve
+as initial collection covers; the knit supplies the distinct seasonal homepage campaign.
+These are fictional product illustrations, not evidence of actual garments or production.
+
 ## Catalog landscape — 2026-10-16
 
 `assets/editorial/sources/catalog-interlude.webp` is an original built-in imagegen photograph made

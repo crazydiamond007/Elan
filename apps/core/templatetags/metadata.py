@@ -5,10 +5,21 @@ from urllib.parse import urljoin
 
 from django import template
 from django.conf import settings
+from django.contrib.staticfiles import finders
+from django.templatetags.static import static
 from django.utils.html import json_script
 from django.utils.safestring import mark_safe
 
 register = template.Library()
+
+
+@register.simple_tag
+def stylesheet_url(path):
+    """Refresh changed development CSS; deployed assets keep manifest-backed URLs."""
+    url = static(path)
+    if settings.DEBUG and (source := finders.find(path)):
+        return f"{url}?v={Path(source).stat().st_mtime_ns}"
+    return url
 
 
 @lru_cache(maxsize=1)

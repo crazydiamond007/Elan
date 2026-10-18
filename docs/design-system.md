@@ -1,5 +1,20 @@
 # Design direction
 
+**Search panel refinement, 2026-10-18:** the [drawer validation record](header-footer-validation.md)
+documents the corrected right-hand search panel from the owner's latest screenshot. The search field,
+suggestions and three product previews stack along one left edge. Height-aware spacing and thumbnails
+keep all search content visible in sixteen checked viewport sizes; constrained reflow retains internal
+scrolling so keyboard users can still reach every destination. The earlier side-by-side card was rejected.
+
+**Merchandising refinement, 2026-10-17:** [the validation record](merchandising-validation.md)
+documents managed image-led collection pages, matching-colour alternate card photos, sale-price
+comparisons, fifteen additional signature views and distinct campaign art. Cards offer hover/focus
+preview plus an explicit 44px touch/keyboard toggle. The purchasing area has tighter spacing and
+shorter helper text. Desktop footer columns become native mobile disclosures, enhanced to start
+collapsed; the no-JavaScript fallback keeps their destinations visible. The bag icon shows session
+quantity, and the existing redirect flow names each newly added selection. Ivory, charcoal, licensed
+typefaces, the homepage hero and the numbered pagination direction remain consistent.
+
 **Latest pagination/title refinement, 2026-10-16:** [numbered pagination and page titles](numbered-pagination-validation.md)
 documents the owner-requested outlined panel, Previous/Next pills, active numbered circles and
 separate page status. Browser and social title separators now use a vertical bar rather than an em dash.

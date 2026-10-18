@@ -16,6 +16,7 @@ def listing(request, section="all", slug=None):
     products = Product.objects.public()
     title = "The collection"
     description = "Quiet silhouettes. Thoughtful textures. A considered wardrobe for everyday life."
+    collection = None
     if section in {"women", "men"}:
         products = products.filter(department__in=[section, Product.Department.UNISEX])
         title = section.title()
@@ -33,7 +34,8 @@ def listing(request, section="all", slug=None):
         products = products.filter(category=group)
         title, description = group.name, group.description or description
     elif section == "collection":
-        group = get_object_or_404(Collection, slug=slug, is_active=True)
+        group = get_object_or_404(Collection.objects.for_display(), slug=slug, is_active=True)
+        collection = group
         products = products.filter(collections=group)
         title, description = group.name, group.description or description
     categories = list(Category.objects.filter(is_active=True))
@@ -67,6 +69,7 @@ def listing(request, section="all", slug=None):
             "title": title,
             "description": description,
             "section": section,
+            "collection": collection,
             "categories": categories,
             "filter_form": form,
             "page_query": f"{page_query}&" if page_query else "",
@@ -82,7 +85,7 @@ def collections(request):
         request,
         "catalog/collections.html",
         {
-            "collections": Collection.objects.filter(is_active=True),
+            "collections": Collection.objects.for_display().filter(is_active=True),
         },
     )
 

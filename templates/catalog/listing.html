@@ -2,7 +2,7 @@
 {% block title %}{{ title }} | MAISON ÉLAN{% endblock %}
 {% block description %}{{ description }} Fictional fashion catalog; no real purchases.{% endblock %}
 {% block content %}
-  <div class="catalog-intro"><p class="eyebrow">The considered wardrobe</p><h1 class="page-title">{{ title }}</h1><p>{{ description }}</p></div>
+  {% if collection.cover_is_public %}<div class="collection-intro"><div class="collection-intro-image">{% include 'catalog/image.html' with photo=collection.cover_image image_sizes='(min-width: 1024px) 45vw, 100vw' image_loading='eager' %}</div><div class="catalog-intro"><p class="eyebrow">The collection edit</p><h1 class="page-title">{{ title }}</h1><p>{{ description }}</p></div></div>{% else %}<div class="catalog-intro"><p class="eyebrow">The considered wardrobe</p><h1 class="page-title">{{ title }}</h1><p>{{ description }}</p></div>{% endif %}
   <nav class="catalog-navigation" aria-label="Browse the catalog">
     <a href="{% url 'catalog:all' %}"{% if section == 'all' %} aria-current="page"{% endif %}>All pieces</a>
     <a href="{% url 'catalog:new' %}"{% if section == 'new' %} aria-current="page"{% endif %}>New arrivals</a>

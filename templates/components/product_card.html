@@ -1,13 +1,15 @@
 <article class="product-card">
   <a class="product-link" href="{{ piece.get_absolute_url }}">
     <div class="product-media">
-      {% include 'catalog/image.html' with photo=piece.primary_image image_sizes=card_sizes %}
+      <div class="product-media-primary">{% include 'catalog/image.html' with photo=piece.primary_image image_sizes=card_sizes %}</div>
+      {% if piece.alternate_image %}<div class="product-media-secondary" aria-hidden="true">{% include 'catalog/image.html' with photo=piece.alternate_image image_sizes=card_sizes %}</div>{% endif %}
       {% if not piece.available %}<span class="product-badge">Unavailable</span>{% elif piece.is_signature %}<span class="product-badge">Signature</span>{% endif %}
     </div>
     <div class="product-details">
       {% if card_heading_level == 'h2' %}<h2>{{ piece.name }}</h2>{% else %}<h3>{{ piece.name }}</h3>{% endif %}
       <p class="product-colour">{{ piece.color_names }}</p>
-      <p class="product-price">{% if piece.price_varies %}From {% endif %}€{{ piece.price|floatformat:'2' }}</p>
+      <p class="product-price">{% if piece.price_varies %}From {% endif %}€{{ piece.price|floatformat:'2' }}{% if piece.original_price %} <span class="card-original-price"><span class="visually-hidden">Original price </span><s>€{{ piece.original_price|floatformat:'2' }}</s></span>{% endif %}</p>
     </div>
   </a>
+  {% if piece.alternate_image %}<button type="button" class="card-preview-toggle" data-card-preview aria-label="Show alternate photograph of {{ piece.name }}" aria-pressed="false" hidden>{% include 'components/icon.html' with icon='image' %}</button>{% endif %}
 </article>

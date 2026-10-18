@@ -62,7 +62,12 @@ def add(request):
         services.change_quantity(request.session, variant, data["quantity"], add=True)
     except services.CartError as error:
         return bag_response(request, error=str(error), status=409)
-    messages.success(request, "Added to your demo bag.")
+    messages.success(
+        request,
+        f"Added to your demo bag: {variant.product.name} · "
+        f"{variant.color.name} / {variant.size.name} · Quantity {data['quantity']}.",
+        extra_tags="bag-added",
+    )
     return redirect("cart:bag")
 
 

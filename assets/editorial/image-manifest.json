@@ -546,5 +546,31 @@
       "height": 1280,
       "bytes": 41450
     }
+  ],
+  "atelier-v2": [
+    {
+      "file": "atelier-v2-320.webp",
+      "width": 320,
+      "height": 400,
+      "bytes": 10016
+    },
+    {
+      "file": "atelier-v2-480.webp",
+      "width": 480,
+      "height": 600,
+      "bytes": 18072
+    },
+    {
+      "file": "atelier-v2-720.webp",
+      "width": 720,
+      "height": 900,
+      "bytes": 34252
+    },
+    {
+      "file": "atelier-v2-960.webp",
+      "width": 960,
+      "height": 1200,
+      "bytes": 56436
+    }
   ]
 }

@@ -29,7 +29,7 @@
       </form>
       <p class="availability" role="status" aria-live="polite" data-availability>{% if selected %}{% if selected.stock %}Available in the demo catalog{% else %}This size is currently unavailable{% endif %}<span>{{ selected.color.name }} / {{ selected.size.name }} · SKU {{ selected.sku }}</span>{% else %}Choose an available colour and size.{% endif %}</p>
       <button class="button button-dark purchase-preview" type="submit" form="variant-selection"{% if not selected or not selected.stock %} disabled{% endif %} aria-describedby="shopping-status">{% if selected and selected.stock %}Add to demo bag{% else %}Currently unavailable{% endif %}</button>
-      <p id="shopping-status" class="fine-print">Fictional product and illustrative price. Your bag leads to a simulated checkout. No real purchases.</p>
+      <p id="shopping-status" class="fine-print">Demo shopping only. No payment or delivery.</p>
       <div class="product-disclosures">
         <details open><summary>Description & composition</summary><p>{{ piece.composition|default:'Composition information is being prepared.' }}</p></details>
         <details><summary>Fit & sizing</summary><p>{{ piece.fit|default:'Sizing information is being prepared.' }}</p></details>

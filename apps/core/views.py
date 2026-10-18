@@ -10,7 +10,7 @@ from django.views.decorators.cache import never_cache
 from django.views.decorators.http import require_safe
 from django.views.static import serve
 
-from apps.catalog.models import Product
+from apps.catalog.models import Collection, Product
 
 from .sitemaps import SITEMAPS
 
@@ -23,6 +23,10 @@ def home(request: HttpRequest) -> HttpResponse:
         {
             "arrivals": Product.objects.public().for_display()[:4],
             "favourites": Product.objects.public().for_display().filter(is_signature=True)[:3],
+            "campaign": Collection.objects.for_display()
+            .filter(is_active=True, is_featured=True, cover_is_public=True)
+            .order_by("position", "pk")
+            .first(),
         },
     )
 
@@ -112,4 +116,6 @@ def page_not_found(request: HttpRequest, exception: Exception) -> HttpResponse:
 
 
 def server_error(request: HttpRequest) -> HttpResponse:
+    # Error rendering must not read an unavailable database just to show a bag count.
+    request._skip_cart_badge = True
     return render(request, "errors/500.html", status=500)

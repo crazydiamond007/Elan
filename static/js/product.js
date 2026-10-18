@@ -159,7 +159,7 @@
     visual.hidden = false;
     form.querySelector(".selection-actions button").hidden = true;
     form.querySelector("#selection-help").textContent =
-      "Select your size. Price and availability update here; your bag checks current stock again.";
+      "Unavailable sizes are marked. Prices are illustrative.";
     quantity.addEventListener("input", updateSelection);
   }
   gallery.classList.add("gallery-enhanced");

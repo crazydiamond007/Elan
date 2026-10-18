@@ -1,0 +1,113 @@
+{
+  "created": "2026-10-17",
+  "mode": "built-in imagegen",
+  "purpose": "Original additional views of the five remaining signature products",
+  "processing": "Metadata-free quality-94 WebP masters; managed responsive media uses the existing validated ProductImage pipeline.",
+  "assets": [
+    {
+      "asset": "knit-styled",
+      "reference": "knit",
+      "prompt": "Use case: product-mockup. Asset type: original luxury fashion e-commerce gallery photograph, portrait 3:4. Input image is the exact product identity reference. Subject: the SAME ivory wool crewneck sweater. Preserve these invariants: Ivory colour, relaxed dropped shoulders, fine vertical knit texture, ribbed round neckline, ribbed cuffs and hem, no buttons, no pockets. Photograph fictional adult female model wearing this sweater over sand wide-leg tailored trousers and brown flat shoes. Full-body portrait, head and shoes entirely visible with generous margins, relaxed natural pose in a softly lit pale limestone courtyard beside a simple wall. Garment/accessory clearly readable. A composed fashion editorial, refined natural skin, warm autumn indirect daylight. Match the original product colour, construction, materials and proportions. Restrained matte editorial colour grade, realistic textile/leather and plausible anatomy. No text, logos, watermarks, recognizable brand designs, celebrities, borders or collages.",
+      "input": "assets/editorial/sources/knit.webp",
+      "master": "assets/editorial/sources/knit-styled.webp"
+    },
+    {
+      "asset": "knit-back",
+      "reference": "knit",
+      "prompt": "Use case: product-mockup. Asset type: original luxury fashion e-commerce gallery photograph, portrait 3:4. Input image is the exact product identity reference. Subject: the SAME ivory wool crewneck sweater. Preserve these invariants: Ivory colour, relaxed dropped shoulders, fine vertical knit texture, ribbed round neckline, ribbed cuffs and hem, no buttons, no pockets. A directly rear-facing catalog photograph of the SAME ivory wool crewneck sweater. Ghost mannequin, no visible body or hanger, garment entirely centered in frame. Its back must be consistent with the front reference: no added decoration, embroidery, belt or pockets. Soft matching warm ivory studio background and diffuse daylight, softly grounded shadow. Match the original product colour, construction, materials and proportions. Restrained matte editorial colour grade, realistic textile/leather and plausible anatomy. No text, logos, watermarks, recognizable brand designs, celebrities, borders or collages.",
+      "input": "assets/editorial/sources/knit.webp",
+      "master": "assets/editorial/sources/knit-back.webp"
+    },
+    {
+      "asset": "knit-detail",
+      "reference": "knit",
+      "prompt": "Use case: product-mockup. Asset type: original luxury fashion e-commerce gallery photograph, portrait 3:4. Input image is the exact product identity reference. Subject: the SAME ivory wool crewneck sweater. Preserve these invariants: Ivory colour, relaxed dropped shoulders, fine vertical knit texture, ribbed round neckline, ribbed cuffs and hem, no buttons, no pockets. A deliberate tight macro photograph of the SAME ivory wool crewneck sweater, showing ribbed neckline meeting the fine knitted body. Rich tactile detail, soft raking daylight, no invented labels. Match the original product colour, construction, materials and proportions. Restrained matte editorial colour grade, realistic textile/leather and plausible anatomy. No text, logos, watermarks, recognizable brand designs, celebrities, borders or collages.",
+      "input": "assets/editorial/sources/knit.webp",
+      "master": "assets/editorial/sources/knit-detail.webp"
+    },
+    {
+      "asset": "bag-styled",
+      "reference": "bag",
+      "prompt": "Use case: product-mockup. Asset type: original luxury fashion e-commerce gallery photograph, portrait 3:4. Input image is the exact product identity reference. Subject: the SAME black pebbled leather tote. Preserve these invariants: Supple black pebbled leather, two long narrow rounded shoulder handles with tapered stitched ends, softly structured medium rectangular body, subtle vertical side gusset seams, no hardware or visible branding. Photograph fictional adult female model carrying this exact tote over one shoulder, wearing a cream wool knit and charcoal straight trousers, bag entirely visible. Full-body portrait, head and shoes entirely visible with generous margins, relaxed natural pose in a softly lit pale limestone courtyard beside a simple wall. Garment/accessory clearly readable. A composed fashion editorial, refined natural skin, warm autumn indirect daylight. Match the original product colour, construction, materials and proportions. Restrained matte editorial colour grade, realistic textile/leather and plausible anatomy. No text, logos, watermarks, recognizable brand designs, celebrities, borders or collages.",
+      "input": "assets/editorial/sources/bag.webp",
+      "master": "assets/editorial/sources/bag-styled.webp"
+    },
+    {
+      "asset": "bag-back",
+      "reference": "bag",
+      "prompt": "Use case: product-mockup. Asset type: original luxury fashion e-commerce gallery photograph, portrait 3:4. Input image is the exact product identity reference. Subject: the SAME black pebbled leather tote. Preserve these invariants: Supple black pebbled leather, two long narrow rounded shoulder handles with tapered stitched ends, softly structured medium rectangular body, subtle vertical side gusset seams, no hardware or visible branding. A directly rear-facing catalog photograph of the SAME black pebbled leather tote. Turn the bag to show its opposite side and side gusset; both complete handles remain visible. It sits on the same pale ivory plinth. Soft matching warm ivory studio background and diffuse daylight, softly grounded shadow. Match the original product colour, construction, materials and proportions. Restrained matte editorial colour grade, realistic textile/leather and plausible anatomy. No text, logos, watermarks, recognizable brand designs, celebrities, borders or collages.",
+      "input": "assets/editorial/sources/bag.webp",
+      "master": "assets/editorial/sources/bag-back.webp"
+    },
+    {
+      "asset": "bag-detail",
+      "reference": "bag",
+      "prompt": "Use case: product-mockup. Asset type: original luxury fashion e-commerce gallery photograph, portrait 3:4. Input image is the exact product identity reference. Subject: the SAME black pebbled leather tote. Preserve these invariants: Supple black pebbled leather, two long narrow rounded shoulder handles with tapered stitched ends, softly structured medium rectangular body, subtle vertical side gusset seams, no hardware or visible branding. A deliberate tight macro photograph of the SAME black pebbled leather tote, showing pebbled leather grain, a tapered handle attachment and its precise stitching. Rich tactile detail, soft raking daylight, no invented labels. Match the original product colour, construction, materials and proportions. Restrained matte editorial colour grade, realistic textile/leather and plausible anatomy. No text, logos, watermarks, recognizable brand designs, celebrities, borders or collages.",
+      "input": "assets/editorial/sources/bag.webp",
+      "master": "assets/editorial/sources/bag-detail.webp"
+    },
+    {
+      "asset": "overshirt-styled",
+      "reference": "overshirt",
+      "prompt": "Use case: product-mockup. Asset type: original luxury fashion e-commerce gallery photograph, portrait 3:4. Input image is the exact product identity reference. Subject: the SAME chocolate wool overshirt. Preserve these invariants: Chocolate brown brushed wool, simple pointed collar, five small brown buttons down the front, two rectangular flap chest pockets, straight hem, plain button cuffs. Photograph fictional adult male model wearing this exact overshirt over an ivory crewneck and sand tailored trousers with brown loafers. Full-body portrait, head and shoes entirely visible with generous margins, relaxed natural pose in a softly lit pale limestone courtyard beside a simple wall. Garment/accessory clearly readable. A composed fashion editorial, refined natural skin, warm autumn indirect daylight. Match the original product colour, construction, materials and proportions. Restrained matte editorial colour grade, realistic textile/leather and plausible anatomy. No text, logos, watermarks, recognizable brand designs, celebrities, borders or collages.",
+      "input": "assets/editorial/sources/overshirt.webp",
+      "master": "assets/editorial/sources/overshirt-styled.webp"
+    },
+    {
+      "asset": "overshirt-back",
+      "reference": "overshirt",
+      "prompt": "Use case: product-mockup. Asset type: original luxury fashion e-commerce gallery photograph, portrait 3:4. Input image is the exact product identity reference. Subject: the SAME chocolate wool overshirt. Preserve these invariants: Chocolate brown brushed wool, simple pointed collar, five small brown buttons down the front, two rectangular flap chest pockets, straight hem, plain button cuffs. A directly rear-facing catalog photograph of the SAME chocolate wool overshirt. Ghost mannequin, no visible body or hanger, garment entirely centered in frame. Its back must be consistent with the front reference: no added decoration, embroidery, belt or pockets. Soft matching warm ivory studio background and diffuse daylight, softly grounded shadow. Match the original product colour, construction, materials and proportions. Restrained matte editorial colour grade, realistic textile/leather and plausible anatomy. No text, logos, watermarks, recognizable brand designs, celebrities, borders or collages.",
+      "input": "assets/editorial/sources/overshirt.webp",
+      "master": "assets/editorial/sources/overshirt-back.webp"
+    },
+    {
+      "asset": "overshirt-detail",
+      "reference": "overshirt",
+      "prompt": "Use case: product-mockup. Asset type: original luxury fashion e-commerce gallery photograph, portrait 3:4. Input image is the exact product identity reference. Subject: the SAME chocolate wool overshirt. Preserve these invariants: Chocolate brown brushed wool, simple pointed collar, five small brown buttons down the front, two rectangular flap chest pockets, straight hem, plain button cuffs. A deliberate tight macro photograph of the SAME chocolate wool overshirt, showing one existing brown button, its placket and the edge of a chest pocket. Rich tactile detail, soft raking daylight, no invented labels. Match the original product colour, construction, materials and proportions. Restrained matte editorial colour grade, realistic textile/leather and plausible anatomy. No text, logos, watermarks, recognizable brand designs, celebrities, borders or collages.",
+      "input": "assets/editorial/sources/overshirt.webp",
+      "master": "assets/editorial/sources/overshirt-detail.webp"
+    },
+    {
+      "asset": "tailored-blazer-styled",
+      "reference": "tailored-blazer",
+      "prompt": "Use case: product-mockup. Asset type: original luxury fashion e-commerce gallery photograph, portrait 3:4. Input image is the exact product identity reference. Subject: the SAME taupe single-breasted blazer. Preserve these invariants: Muted taupe fine wool, notched lapels, one visible taupe four-hole front button, two horizontal flap hip pockets, shaped waist, softly structured shoulders and rounded lower front. Photograph fictional adult female model wearing this exact blazer over a simple ivory top, black straight trousers and understated black flats. Full-body portrait, head and shoes entirely visible with generous margins, relaxed natural pose in a softly lit pale limestone courtyard beside a simple wall. Garment/accessory clearly readable. A composed fashion editorial, refined natural skin, warm autumn indirect daylight. Match the original product colour, construction, materials and proportions. Restrained matte editorial colour grade, realistic textile/leather and plausible anatomy. No text, logos, watermarks, recognizable brand designs, celebrities, borders or collages.",
+      "input": "assets/editorial/sources/tailored-blazer.webp",
+      "master": "assets/editorial/sources/tailored-blazer-styled.webp"
+    },
+    {
+      "asset": "tailored-blazer-back",
+      "reference": "tailored-blazer",
+      "prompt": "Use case: product-mockup. Asset type: original luxury fashion e-commerce gallery photograph, portrait 3:4. Input image is the exact product identity reference. Subject: the SAME taupe single-breasted blazer. Preserve these invariants: Muted taupe fine wool, notched lapels, one visible taupe four-hole front button, two horizontal flap hip pockets, shaped waist, softly structured shoulders and rounded lower front. A directly rear-facing catalog photograph of the SAME taupe single-breasted blazer. Ghost mannequin, no visible body or hanger, garment entirely centered in frame. Its back must be consistent with the front reference: no added decoration, embroidery, belt or pockets. Soft matching warm ivory studio background and diffuse daylight, softly grounded shadow. Match the original product colour, construction, materials and proportions. Restrained matte editorial colour grade, realistic textile/leather and plausible anatomy. No text, logos, watermarks, recognizable brand designs, celebrities, borders or collages.",
+      "input": "assets/editorial/sources/tailored-blazer.webp",
+      "master": "assets/editorial/sources/tailored-blazer-back.webp"
+    },
+    {
+      "asset": "tailored-blazer-detail",
+      "reference": "tailored-blazer",
+      "prompt": "Use case: product-mockup. Asset type: original luxury fashion e-commerce gallery photograph, portrait 3:4. Input image is the exact product identity reference. Subject: the SAME taupe single-breasted blazer. Preserve these invariants: Muted taupe fine wool, notched lapels, one visible taupe four-hole front button, two horizontal flap hip pockets, shaped waist, softly structured shoulders and rounded lower front. A deliberate tight macro photograph of the SAME taupe single-breasted blazer, showing the existing taupe front button, the notched lapel edge and fine woven wool. Rich tactile detail, soft raking daylight, no invented labels. Match the original product colour, construction, materials and proportions. Restrained matte editorial colour grade, realistic textile/leather and plausible anatomy. No text, logos, watermarks, recognizable brand designs, celebrities, borders or collages.",
+      "input": "assets/editorial/sources/tailored-blazer.webp",
+      "master": "assets/editorial/sources/tailored-blazer-detail.webp"
+    },
+    {
+      "asset": "merino-cardigan-styled",
+      "reference": "merino-cardigan",
+      "prompt": "Use case: product-mockup. Asset type: original luxury fashion e-commerce gallery photograph, portrait 3:4. Input image is the exact product identity reference. Subject: the SAME oatmeal merino cardigan. Preserve these invariants: Oatmeal beige fine merino knit, V neckline, five small brown four-hole buttons, two square patch hip pockets with ribbed edges, ribbed cuffs and hem, soft dropped shoulders. Photograph fictional adult male model wearing this exact cardigan over an ivory crewneck and dark charcoal trousers with simple brown loafers. Full-body portrait, head and shoes entirely visible with generous margins, relaxed natural pose in a softly lit pale limestone courtyard beside a simple wall. Garment/accessory clearly readable. A composed fashion editorial, refined natural skin, warm autumn indirect daylight. Match the original product colour, construction, materials and proportions. Restrained matte editorial colour grade, realistic textile/leather and plausible anatomy. No text, logos, watermarks, recognizable brand designs, celebrities, borders or collages.",
+      "input": "assets/editorial/sources/merino-cardigan.webp",
+      "master": "assets/editorial/sources/merino-cardigan-styled.webp"
+    },
+    {
+      "asset": "merino-cardigan-back",
+      "reference": "merino-cardigan",
+      "prompt": "Use case: product-mockup. Asset type: original luxury fashion e-commerce gallery photograph, portrait 3:4. Input image is the exact product identity reference. Subject: the SAME oatmeal merino cardigan. Preserve these invariants: Oatmeal beige fine merino knit, V neckline, five small brown four-hole buttons, two square patch hip pockets with ribbed edges, ribbed cuffs and hem, soft dropped shoulders. A directly rear-facing catalog photograph of the SAME oatmeal merino cardigan. Ghost mannequin, no visible body or hanger, garment entirely centered in frame. Its back must be consistent with the front reference: no added decoration, embroidery, belt or pockets. Soft matching warm ivory studio background and diffuse daylight, softly grounded shadow. Match the original product colour, construction, materials and proportions. Restrained matte editorial colour grade, realistic textile/leather and plausible anatomy. No text, logos, watermarks, recognizable brand designs, celebrities, borders or collages.",
+      "input": "assets/editorial/sources/merino-cardigan.webp",
+      "master": "assets/editorial/sources/merino-cardigan-back.webp"
+    },
+    {
+      "asset": "merino-cardigan-detail",
+      "reference": "merino-cardigan",
+      "prompt": "Use case: product-mockup. Asset type: original luxury fashion e-commerce gallery photograph, portrait 3:4. Input image is the exact product identity reference. Subject: the SAME oatmeal merino cardigan. Preserve these invariants: Oatmeal beige fine merino knit, V neckline, five small brown four-hole buttons, two square patch hip pockets with ribbed edges, ribbed cuffs and hem, soft dropped shoulders. A deliberate tight macro photograph of the SAME oatmeal merino cardigan, showing an existing brown button, buttonhole and fine merino ribbing. Rich tactile detail, soft raking daylight, no invented labels. Match the original product colour, construction, materials and proportions. Restrained matte editorial colour grade, realistic textile/leather and plausible anatomy. No text, logos, watermarks, recognizable brand designs, celebrities, borders or collages.",
+      "input": "assets/editorial/sources/merino-cardigan.webp",
+      "master": "assets/editorial/sources/merino-cardigan-detail.webp"
+    }
+  ]
+}

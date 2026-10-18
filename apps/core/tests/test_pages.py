@@ -1,7 +1,8 @@
 import pytest
 from django.template import Context, Template
 from django.test import RequestFactory
-from django.urls import reverse
+from django.urls import resolve, reverse
+from django.utils.functional import SimpleLazyObject
 
 from apps.core import views
 
@@ -113,8 +114,13 @@ def test_error_pages_do_not_disclose_exception_details(view, status, message):
 
 @pytest.mark.django_db
 def test_server_error_renders_without_database_queries(django_assert_num_queries):
+    request = RequestFactory().get("/")
+    request.resolver_match = resolve("/")
+    request.session = SimpleLazyObject(
+        lambda: pytest.fail("Error rendering must not load the session for the bag badge.")
+    )
     with django_assert_num_queries(0):
-        response = views.server_error(RequestFactory().get("/"))
+        response = views.server_error(request)
     assert response.status_code == 500
     assert b"Temporarily unavailable" in response.content
 

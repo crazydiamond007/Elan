@@ -1,5 +1,75 @@
 # Screenshot-led header, drawers and footer — 2026-10-15
 
+## Screenshot-aligned search correction — 2026-10-18
+
+The owner rejected the compact side-by-side card and supplied a clearer Dior reference: an edge-aligned
+right panel with the search field, suggestions and recommendation row stacked along the same left edge.
+The current design follows that arrangement. The panel occupies approximately half a large desktop
+viewport and an inset phone viewport. A follow-up restores the reference's visible box edges: **8px
+rounded corners** with a **16px outer gap** on desktop, **12px** on phones and **8px** on short screens.
+Three product previews, including their names, remain visible. Short-screen spacing is tightened to
+preserve that visibility after adding the outer gap.
+Image heights, toolbar spacing and section margins adapt to viewport height. Two-column suggestions
+save vertical space on phones and short screens; recommendations stay below them.
+
+Diagnosis reproduced overflow in the prior layout at 560×420, 480×360 and 430×400. These sizes are
+now included in the browser checks. The stylesheet URL also receives a stable modification-time
+version in development, changing after each CSS rebuild; non-debug deployments retain the configured
+static storage's manifest URLs. This prevents a previous cached development stylesheet from surviving
+a normal refresh. Cached CSS was a possible contributing factor, not a confirmed cause on the owner's
+browser.
+
+Executed validation for the correction:
+
+- **33 affected Python tests passed in 2.31s**, including stylesheet-version refresh behavior and
+  existing public-page/editorial behavior.
+- Chromium passed at **16 viewport sizes**, including the supplied screenshot's **1912×840**, the
+  earlier eleven sizes, and **560×420, 480×360, 430×400 and 320×480**. Search requires no scrolling
+  in those tested states; bounds checks include every recommendation link and its product name.
+  Additional checks require vertical stacking and a common left edge for all three sections.
+  The follow-up also checks a positive outer gap and an 8px corner radius at every size; desktop
+  captures were visually reviewed to confirm the rounded inset panel.
+- Navigation/search keyboard focus, close/focus restoration, image loading and real search submission
+  passed; audited dialogs reported zero axe A/AA violations or browser errors. Fifteen contextual
+  layout checks and constrained 320×256px keyboard reflow still pass, as does the no-JavaScript fallback.
+- The 1912×840 desktop and 390×844 phone screenshots were visually reviewed against the owner's
+  supplied arrangement. Reports/captures remain in ignored `.qa/search-panel/chromium/`.
+- Tailwind, production hashed static collection, Ruff, formatting, JavaScript syntax and
+  `git diff --check` passed. No dependency was added. Extremely constrained viewports retain scrolling
+  so content stays reachable rather than being clipped.
+
+## Earlier compact card trial — superseded
+
+The owner requested that the search field, suggestions and recommended products be visible without
+scrolling. Search now has its own content-sized height, an 860px maximum width, a shorter toolbar
+and tighter spacing. Setting `bottom: auto` prevents the native dialog's default inset from stretching
+the panel into unused space. Desktop places suggestions beside product previews; phones use a two-column
+suggestion list above smaller previews. Short landscape viewports use reduced vertical spacing.
+Product names remain visible, inputs retain 16px text, and controls retain at least 44px targets.
+The shared navigation drawer, existing form behavior and native modal handling remain intact.
+
+Executed checks using `scripts/qa_drawers.mjs` and Chromium 156.0.8078.4:
+
+- All search content fits with no internal scrolling at **1920×1080, 1440×900, 1366×768, 1280×600,
+  1024×768, 768×1024, 390×844, 375×667, 320×568, 844×390 and 667×375**. Geometry checks verify
+  every search destination is in the panel, the panel stays within the viewport, and it ends within
+  25px of its content. Desktop, small-phone and landscape screenshots were visually reviewed.
+- Navigation/search focus containment, close/focus restoration, real image loading and search
+  submission passed, with no reported axe A/AA violations or browser errors at those eleven sizes.
+- Fifteen further layout checks cover related-product previews and category fallback content on
+  product, story and empty-search pages at desktop, laptop, small-phone and landscape sizes.
+- At a constrained **320×256px** reflow viewport, internal scrolling remains available and keyboard
+  navigation reaches the last preview; Escape closes the dialog. Content is never hidden to force
+  a fit. The no-JavaScript navigation/search fallback also passed.
+- Tailwind compilation, JavaScript syntax/format checks, Ruff, production hashed static collection
+  and `git diff --check` passed. No backend, dependency or database change was needed.
+
+Reports and screenshots: ignored `.qa/search-panel/chromium/`. These are local Chromium checks,
+not physical-device or assistive-technology certification. Earlier full-height search styling and
+the old QA output directory below are historical; the menu drawer still uses its original height.
+
+## Original implementation
+
 The owner supplied four screenshots showing a single-row header, a left menu drawer, a right search
 drawer and a spacious footer with serif headings/newsletter. This focused implementation uses those
 visual references while retaining MAISON ÉLAN's restored homepage imagery, Inter/Cormorant fonts,

@@ -249,7 +249,8 @@ def test_listing_and_details_have_bounded_queries(client, django_assert_num_quer
         assert client.get("/products/sculpted-coat/").status_code == 200
     with django_assert_num_queries(8):
         assert client.get("/products/sculpted-coat/").status_code == 200
-    with django_assert_num_queries(6):
+    # Two product groups, a campaign lookup, and the existing session for the bag badge.
+    with django_assert_num_queries(8):
         assert client.get(reverse("core:home")).status_code == 200
 
 

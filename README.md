@@ -160,7 +160,30 @@ uv run --locked --env-file .env manage.py seed_editorial
 ```
 
 This preserves existing photographs, curation, prices and stock. Review `/products/sculpted-coat/`;
-later catalog and shopping refinements await visual review.
+the subsequent [merchandising refinement](docs/merchandising-validation.md) adds image-led collections,
+alternate product-card photographs, sale comparisons, a compact purchasing area, mobile footer
+disclosures and detailed bag feedback. After the extended catalog and editorial seed, run:
+
+```bash
+uv run --locked --env-file .env manage.py seed_merchandising
+```
+
+This adds fifteen original photographs to five more signature products and fills missing collection
+covers/outfit selections. It preserves occupied image positions, existing covers, curation, prices
+and inventory. It refuses to guess if a signature product's front-photo colour has changed. The local
+workspace has already received these assets. All six signature products now have front, styled,
+back and detail views; the remaining products retain their existing photographs.
+
+Choose **Catalog → Collections → Cover image** in Admin to set each collection's photograph.
+Covers appear only while their source product is public. The first featured collection with a
+public cover, ordered by position, also supplies the homepage campaign photograph and destination.
+Collections without covers use a typographic placeholder. Card photo buttons support touch and
+keyboard use; mobile footer groups expand natively. Without JavaScript, footer links remain visible
+and every normal shopping destination/form remains available.
+
+The bag icon counts quantities in the bounded session cart, including items that may subsequently
+become unavailable until removed. Adding an item shows its selected product, colour, size and added
+quantity after the server validates it. Bag feedback uses the existing server-rendered redirect flow.
 
 ## Checks
 
@@ -274,6 +297,7 @@ The normal development server remains at port 8000.
 - [Phase 4 catalog validation and browser QA](docs/phase-4-validation.md)
 - [Phase 5 shopping validation and browser QA](docs/phase-5-validation.md)
 - [Phase 6 audit results and acceptance limits](docs/phase-6-validation.md)
+- [Merchandising refinement and executed checks](docs/merchandising-validation.md)
 - [Production deployment handoff](docs/deployment.md)
 
 Each development phase ends with checks and owner review. Commits and pushes are left for owner review.

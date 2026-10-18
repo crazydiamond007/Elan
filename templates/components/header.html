@@ -24,7 +24,7 @@
     <a class="wordmark" href="{% url 'core:home' %}" aria-label="MAISON ÉLAN home">{% include 'components/wordmark.html' %}</a>
     <div class="header-utilities">
       <a class="utility-link search-link" href="{% url 'catalog:all' %}?q=#catalog-filters" aria-label="Search the collection" title="Search the collection">{% include 'components/icon.html' with icon='search' %}</a>
-      <a class="utility-link bag-link" href="{% url 'cart:bag' %}" aria-label="Shopping bag" title="Shopping bag"{% if request.resolver_match.namespace == 'cart' %} aria-current="page"{% endif %}>{% include 'components/icon.html' with icon='bag' %}</a>
+      <a class="utility-link bag-link" href="{% url 'cart:bag' %}" aria-label="Shopping bag" aria-describedby="bag-quantity-label" title="Shopping bag"{% if request.resolver_match.namespace == 'cart' %} aria-current="page"{% endif %}>{% include 'components/icon.html' with icon='bag' %}{% if bag_quantity %}<span class="bag-count" aria-hidden="true">{{ bag_quantity }}</span>{% endif %}<span class="visually-hidden" id="bag-quantity-label">{{ bag_quantity }} item{{ bag_quantity|pluralize }} in your demo bag</span></a>
     </div>
   </div>
 </header>

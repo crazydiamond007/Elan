@@ -5,8 +5,13 @@ from django.http import HttpRequest
 from django.templatetags.static import static
 from django.urls import reverse
 
+from apps.cart.services import read_cart
+
 
 def site(request: HttpRequest) -> dict[str, object]:
+    show_quantity = request.resolver_match is not None and not getattr(
+        request, "_skip_cart_badge", False
+    )
     routes = (
         ("New in", "catalog:new", ""),
         ("Women", "catalog:women", ""),
@@ -16,6 +21,9 @@ def site(request: HttpRequest) -> dict[str, object]:
     )
     return {
         "brand_name": "MAISON ÉLAN",
+        "bag_quantity": sum(read_cart(getattr(request, "session", {})).values())
+        if show_quantity
+        else 0,
         "currency_code": settings.CURRENCY_CODE,
         "canonical_url": f"{settings.SITE_URL}{request.path}",
         "site_origin": settings.SITE_URL,

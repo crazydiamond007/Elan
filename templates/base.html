@@ -22,9 +22,10 @@
     {% endif %}{% endblock %}
     <link rel="preload" href="{% static 'fonts/inter-latin.woff2' %}" as="font" type="font/woff2" crossorigin>
     <link rel="preload" href="{% static 'fonts/cormorant-garamond-latin.woff2' %}" as="font" type="font/woff2" crossorigin>
-    <link rel="stylesheet" href="{% static 'css/app.css' %}">
+    <link rel="stylesheet" href="{% stylesheet_url 'css/app.css' %}">
     <script src="{% static 'js/navigation.js' %}" defer></script>
     <script src="{% static 'js/forms.js' %}" defer></script>
+    <script src="{% static 'js/storefront.js' %}" defer></script>
     {% block extra_head %}{% endblock %}
   </head>
   <body>

@@ -5,12 +5,17 @@ from .forms import ProductImageForm
 from .models import Category, Collection, Color, Product, ProductImage, Size, Variant
 
 
-@admin.register(Category, Collection)
+@admin.register(Category)
 class GroupingAdmin(admin.ModelAdmin):
     list_display = ("name", "slug", "is_active", "position")
     list_filter = ("is_active",)
     search_fields = ("name", "slug")
     prepopulated_fields = {"slug": ("name",)}
+
+
+@admin.register(Collection)
+class CollectionAdmin(GroupingAdmin):
+    autocomplete_fields = ("cover_image",)
 
 
 @admin.register(Color, Size)
