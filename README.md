@@ -287,6 +287,7 @@ The normal development server remains at port 8000.
 
 ## Further documentation
 
+- [Android/local network preview](docs/lan-preview.md)
 - [Architecture and phase boundaries](docs/architecture.md)
 - [Security controls and limitations](docs/security.md)
 - [Design direction](docs/design-system.md)

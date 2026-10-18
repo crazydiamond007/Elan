@@ -10,13 +10,15 @@ admin.site.site_title = "MAISON ÉLAN"
 admin.site.index_title = "Site administration"
 
 urlpatterns = [
-    path("admin/", admin.site.urls),
     path("", include("apps.catalog.urls")),
     path("", include("apps.cart.urls")),
     path("", include("apps.checkout.urls")),
     path("", include("apps.marketing.urls")),
     path("", include("apps.core.urls")),
 ]
+
+if not getattr(settings, "LAN_PREVIEW", False):
+    urlpatterns.insert(0, path("admin/", admin.site.urls))
 
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

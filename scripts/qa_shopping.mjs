@@ -3,6 +3,7 @@ import assert from "node:assert/strict";
 import { createRequire } from "node:module";
 import { mkdir, writeFile } from "node:fs/promises";
 import path from "node:path";
+import { recordConsole } from "./qa_console.mjs";
 
 const require = createRequire(
   path.join(
@@ -20,7 +21,12 @@ const output = path.resolve(
 );
 await mkdir(output, { recursive: true });
 const browser = await browserType.launch({ headless: true });
-const report = { browser: browser.version(), viewports: [], checks: [] };
+const report = {
+  browser: browser.version(),
+  viewports: [],
+  checks: [],
+  httpOriginNotices: [],
+};
 
 async function inspect(page, name, width) {
   await page.evaluate(async () => {
@@ -80,7 +86,7 @@ try {
     const errors = [];
     page.on("pageerror", (error) => errors.push(error.message));
     page.on("console", (message) => {
-      if (message.type() === "error") errors.push(message.text());
+      recordConsole(message, errors, report.httpOriginNotices, baseUrl);
     });
     page.on("response", (response) => {
       if (response.status() >= 400)

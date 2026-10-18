@@ -3,6 +3,7 @@ import assert from "node:assert/strict";
 import { createRequire } from "node:module";
 import { mkdir, writeFile } from "node:fs/promises";
 import path from "node:path";
+import { recordConsole } from "./qa_console.mjs";
 const require = createRequire(
   path.join(
     process.env.MAISON_QA_DIR || "/tmp/maison-elan-browser",
@@ -22,6 +23,7 @@ const report = {
   viewports: [],
   contextualSearch: [],
   checks: [],
+  httpOriginNotices: [],
 };
 try {
   for (const [width, height] of [
@@ -49,7 +51,7 @@ try {
     const errors = [];
     page.on("pageerror", (error) => errors.push(error.message));
     page.on("console", (message) => {
-      if (message.type() === "error") errors.push(message.text());
+      recordConsole(message, errors, report.httpOriginNotices, base);
     });
     await page.goto(base, { waitUntil: "networkidle" });
     const logo = await page.locator(".wordmark").boundingBox();
