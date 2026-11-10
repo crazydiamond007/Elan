@@ -119,13 +119,6 @@
       "master": "assets/editorial/sources/wool-scarf.webp",
       "created": "2026-10-14",
       "mode": "built-in imagegen"
-    },
-    {
-      "asset": "coastal-campaign",
-      "mode": "built-in imagegen",
-      "created": "2026-10-15",
-      "prompt": "Use case: photorealistic-natural. Asset type: original fashion house campaign photograph for a website, wide landscape 16:9, high resolution. Scene: an airy modernist coastal villa interior opening to a pale blue-grey sea, raw plaster walls and a smooth stone floor, a single sculptural dark wooden chair near the edge. Subject: two fictional adult fashion models, one woman in sculptural ivory tailoring and a long dark navy coat carried loosely, one man in an unstructured chocolate wool jacket and ivory trousers. Both are in the central half of the frame, a little apart, completely visible head to shoes, natural candid standing poses, quiet expressive faces, no celebrity resemblance. Compose an immersive fashion editorial with balanced architectural space on both sides, no large empty area reserved for website text. Soft luminous overcast daylight, authentic skin texture, tactile wool and cotton, nuanced cool sea blue, chalk white and dark brown palette, cinematic medium-format fashion photography, elegant genuine proportions and plausible hands. No writing, logo, watermark, border, collage or graphic overlay. Original visual for fictional MAISON \u00c9LAN, no existing brand designs.",
-      "master": "assets/editorial/sources/coastal-campaign.webp"
     }
   ]
 }

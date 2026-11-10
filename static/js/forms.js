@@ -13,14 +13,20 @@
     }
     form.dataset.pending = "true";
     form.setAttribute("aria-busy", "true");
-    if (event.submitter) event.submitter.setAttribute("aria-disabled", "true");
+    if (event.submitter) {
+      event.submitter.dataset.pendingSubmitter = "true";
+      event.submitter.setAttribute("aria-disabled", "true");
+    }
   });
   window.addEventListener("pageshow", () => {
     for (const form of document.querySelectorAll('form[data-pending="true"]')) {
       delete form.dataset.pending;
       form.removeAttribute("aria-busy");
     }
-    for (const button of document.querySelectorAll('[aria-disabled="true"]')) {
+    for (const button of document.querySelectorAll(
+      '[data-pending-submitter="true"]',
+    )) {
+      delete button.dataset.pendingSubmitter;
       button.removeAttribute("aria-disabled");
     }
   });

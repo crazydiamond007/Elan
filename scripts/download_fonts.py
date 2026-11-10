@@ -11,7 +11,6 @@ from urllib.request import Request, urlopen
 ROOT = Path(__file__).resolve().parent.parent
 FONTS = ROOT / "static" / "fonts"
 FAMILIES = {
-    "jost": ("Jost:wght@400..600", "jost"),
     "inter": ("Inter:wght@400..600", "inter"),
     "cormorant-garamond": ("Cormorant+Garamond:wght@400..600", "cormorantgaramond"),
     "cormorant-garamond-italic": (

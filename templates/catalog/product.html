@@ -31,10 +31,10 @@
       <button class="button button-dark purchase-preview" type="submit" form="variant-selection"{% if not selected or not selected.stock %} disabled{% endif %} aria-describedby="shopping-status">{% if selected and selected.stock %}Add to demo bag{% else %}Currently unavailable{% endif %}</button>
       <p id="shopping-status" class="fine-print">Demo shopping only. No payment or delivery.</p>
       <div class="product-disclosures">
-        <details open><summary>Description & composition</summary><p>{{ piece.composition|default:'Composition information is being prepared.' }}</p></details>
-        <details><summary>Fit & sizing</summary><p>{{ piece.fit|default:'Sizing information is being prepared.' }}</p></details>
-        <details><summary>Care</summary><p>{{ piece.care|default:'Care information is being prepared.' }}</p><a class="text-link" href="{% url 'core:care' %}">General product care</a></details>
-        <details><summary>About shopping in this demo</summary><p>No payment will be taken and no product will be dispatched.</p><a class="text-link" href="{% url 'core:demo_information' %}#shopping">About this demonstration</a></details>
+        <details open><summary>Description & composition{% include 'components/icon.html' with icon='chevron' %}</summary><p>{{ piece.composition|default:'Composition information is being prepared.' }}</p></details>
+        <details><summary>Fit & sizing{% include 'components/icon.html' with icon='chevron' %}</summary><p>{{ piece.fit|default:'Sizing information is being prepared.' }}</p></details>
+        <details><summary>Care{% include 'components/icon.html' with icon='chevron' %}</summary><p>{{ piece.care|default:'Care information is being prepared.' }}</p><a class="text-link" href="{% url 'core:care' %}">General product care</a></details>
+        <details><summary>About shopping in this demo{% include 'components/icon.html' with icon='chevron' %}</summary><p>No payment will be taken and no product will be dispatched.</p><a class="text-link" href="{% url 'core:demo_information' %}#shopping">About this demonstration</a></details>
       </div>
     </div>
   </div>

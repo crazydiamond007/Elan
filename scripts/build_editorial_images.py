@@ -26,7 +26,7 @@ def main() -> None:
     for source in sorted(SOURCE.glob("*.webp")):
         with Image.open(source) as original:
             image = ImageOps.exif_transpose(original).convert("RGB")
-            is_campaign = source.stem in {"hero", "coastal-campaign"}
+            is_campaign = source.stem == "hero"
             if is_campaign:
                 widths = (800, 1280, 1600)
             elif source.stem == "catalog-interlude":
@@ -37,10 +37,7 @@ def main() -> None:
             if is_campaign:
                 # Art-directed mobile crop keeps both people visible; desktop copy moves below it.
                 portrait = ImageOps.fit(
-                    image,
-                    (800, 1000),
-                    Image.Resampling.LANCZOS,
-                    centering=(0.78 if source.stem == "hero" else 0.48, 0.5),
+                    image, (800, 1000), Image.Resampling.LANCZOS, centering=(0.78, 0.5)
                 )
                 mobile_name = f"{source.stem}-mobile"
                 manifest[mobile_name] = [

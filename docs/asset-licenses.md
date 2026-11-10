@@ -133,21 +133,20 @@ UUID-named managed media pipeline. Runtime uploads remain ignored.
 Navigation/footer/filter icons are project-authored SVG paths in `templates/components/icon.html`.
 They share one outline style and do not introduce an icon dependency or copied brand assets.
 
-## Campaign storefront revision — 2026-10-15
+## Campaign storefront revision — 2026-10-15 (withdrawn 2026-10-22)
 
-- `assets/editorial/sources/coastal-campaign.webp` is an original built-in imagegen photograph of
-  fictional adult models in a coastal architectural setting. The complete prompt, generation mode,
-  date and selected master path are in `assets/editorial/provenance.json`. It uses no reference-site
-  photographs and makes no claim of a real location, person, product or endorsement. Existing masters
-  were preserved. Pillow converted the selected output to a quality-94 WebP master and produced six
-  metadata-free desktop/mobile derivatives; the mobile crop centers both models.
-- `static/fonts/jost-latin.woff2` is the Google Fonts Latin variable subset of Jost, licensed under
-  SIL OFL 1.1. The authors' notice is retained in `static/fonts/jost-OFL.txt`. Source URLs, 26,576-byte
-  size and SHA-256 are recorded in `static/fonts/font-manifest.json`. Jost and the existing Cormorant
-  wordmark are original font choices for this project, not a claim about Dior's actual typefaces.
-  [Official license](https://github.com/google/fonts/blob/main/ofl/jost/OFL.txt).
+The campaign storefront revision was rejected by the owner on 2026-10-15 and its assets were
+removed from the workspace on 2026-10-22. `assets/editorial/sources/coastal-campaign.webp`, its six
+derivatives under `static/images/editorial/`, `static/fonts/jost-latin.woff2` and
+`static/fonts/jost-OFL.txt` are deleted, along with their `provenance.json`, `image-manifest.json`
+and `font-manifest.json` records. Nothing in the storefront referenced them after the revision was
+withdrawn. The project no longer distributes Jost. The licence history is preserved in version
+control; the assets were original generated work and the font was SIL OFL 1.1, so no obligation
+survives their removal.
 
-The current library has nineteen generated masters and 80 derivatives totaling 2,927,334 bytes
-(about 2.79 MiB). The new desktop 1600px campaign is 103,592 bytes; its 800px mobile crop is 45,172
-bytes. These are recorded file sizes, not new performance benchmarks. All visitor font/image requests
-remain local to the site. No Dior logo, custom font file, photograph or source bundle is shipped.
+After the withdrawal the library has 38 generated masters under `assets/editorial/sources/` and 82
+editorial derivatives under `static/images/editorial/` totaling 3,045,906 bytes (about 2.90 MiB).
+Masters whose only use is managed product media are seeded through the catalog pipeline rather than
+published as editorial derivatives. These are recorded file sizes, not performance benchmarks. All
+visitor font/image requests remain local to the site. No Dior logo, custom font file, photograph or
+source bundle is shipped.

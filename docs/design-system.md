@@ -30,7 +30,7 @@ typography and fourteen-product catalog remain, with a single-row white header, 
 serif footer columns and footer newsletter. The “The maison” copy and large footer wordmark are
 removed. The restoration note below records the preceding step, before this focused refinement.
 
-**Current status — 2026-10-15:** the owner rejected the later Dior-reference redesign. The preceding warm ivory design documented below and in `design-refinement-validation.md` is restored, including Inter typography, the original terrace hero, static desktop navigation and expanded footer. The fourteen-product catalog is preserved. The rejected `storefront.css` is not imported; its campaign image and Jost files remain unused in the workspace.
+**Current status — 2026-10-15:** the owner rejected the later Dior-reference redesign. The preceding warm ivory design documented below and in `design-refinement-validation.md` is restored, including Inter typography, the original terrace hero, static desktop navigation and expanded footer. The fourteen-product catalog is preserved. The rejected `storefront.css`, its campaign image and the Jost font files were deleted on 2026-10-22; `docs/asset-licenses.md` records the withdrawal.
 
 Phase 3 implements a modern, minimal, premium editorial direction: warm limestone photography,
 charcoal tailoring, generous whitespace and a restrained Autumn / Winter 26 campaign.

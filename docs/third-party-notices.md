@@ -1,8 +1,8 @@
 # Third-party notices
 
-The storefront self-hosts Jost (SIL OFL 1.1), copyright 2020 The Jost Project Authors.
-Its complete notice is in `static/fonts/jost-OFL.txt`. Existing Inter and Cormorant Garamond
-notices remain alongside their font files; sources and checksums are in the font manifest.
+The storefront self-hosts Inter and Cormorant Garamond; their notices sit alongside the font
+files and their sources and checksums are in `static/fonts/font-manifest.json`. Jost was removed
+on 2026-10-22 with the withdrawn campaign revision and is no longer distributed.
 No Dior fonts, trademarks, photography or source bundles are distributed as project assets.
 
 Gunicorn 26.2.0 is an MIT-licensed runtime dependency. Its installed package contains the upstream

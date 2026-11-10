@@ -1,5 +1,9 @@
 # Numbered pagination and page titles
 
+The [mobile refinement](mobile-layout-validation.md) reduces the phone frame's width, padding,
+corner radius and spacing while retaining its numbered controls and 44px targets. The original
+desktop styling and pagination behavior below remain current.
+
 Implemented on 2026-10-16 from the owner's pagination screenshot and linked Dior collection page.
 The screenshot provides the control arrangement; the storefront retains its own ivory, off-white,
 charcoal, typography and outline icons. The reference page was retrieved at

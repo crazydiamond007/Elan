@@ -77,46 +77,6 @@
       "bytes": 145260
     }
   ],
-  "coastal-campaign": [
-    {
-      "file": "coastal-campaign-800.webp",
-      "width": 800,
-      "height": 450,
-      "bytes": 36134
-    },
-    {
-      "file": "coastal-campaign-1280.webp",
-      "width": 1280,
-      "height": 720,
-      "bytes": 75258
-    },
-    {
-      "file": "coastal-campaign-1600.webp",
-      "width": 1600,
-      "height": 900,
-      "bytes": 103592
-    }
-  ],
-  "coastal-campaign-mobile": [
-    {
-      "file": "coastal-campaign-mobile-480.webp",
-      "width": 480,
-      "height": 600,
-      "bytes": 23010
-    },
-    {
-      "file": "coastal-campaign-mobile-640.webp",
-      "width": 640,
-      "height": 800,
-      "bytes": 33908
-    },
-    {
-      "file": "coastal-campaign-mobile-800.webp",
-      "width": 800,
-      "height": 1000,
-      "bytes": 45172
-    }
-  ],
   "coat": [
     {
       "file": "coat-320.webp",
