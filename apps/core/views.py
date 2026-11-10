@@ -93,7 +93,11 @@ def ready(request):
 
 @require_safe
 def review_media(request, path):
-    """Loopback review equivalent of the immutable, generated-WebP media policy."""
+    """Serve generated product media under the immutable, generated-WebP policy.
+
+    Used by local review and by single-origin deployments that have no separate media host. The
+    URL pattern restricts this to generated names, and `serve` is confined to MEDIA_ROOT/products.
+    """
     response = serve(request, path, document_root=settings.MEDIA_ROOT / "products")
     patch_cache_control(response, public=True, max_age=31536000, immutable=True)
     return response

@@ -22,7 +22,9 @@ if not getattr(settings, "LAN_PREVIEW", False):
 
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
-elif getattr(settings, "LOCAL_REVIEW", False):
+elif getattr(settings, "LOCAL_REVIEW", False) or getattr(settings, "SERVE_MEDIA", False):
+    # One narrow route: generated product WebP names only, so nothing else under MEDIA_ROOT is
+    # reachable and no user-supplied filename ever appears in a URL.
     urlpatterns += [re_path(r"^media/products/(?P<path>[0-9]+/[a-f0-9]{32}\.webp)$", review_media)]
 
 handler400 = "apps.core.views.bad_request"

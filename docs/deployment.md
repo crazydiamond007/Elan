@@ -120,3 +120,57 @@ request at 16 MiB, while application validation limits each image to 8 MiB/twent
 Chrome/Firefox browser checks and automated audits are recorded in Phase 6 validation. Physical
 screen-reader testing, Safari/iOS and real hosting measurements remain acceptance checks before
 public activation; automated results are not accessibility certification or a security guarantee.
+
+## Single-service hosted deployment
+
+The Compose arrangement above assumes two origins and a shared media volume. A single-service
+host - one container, one domain, one attached volume - cannot provide that, so two settings
+make the difference explicit rather than leaving it implied.
+
+`DJANGO_SERVE_MEDIA=true` drops the separate media origin. `MEDIA_URL` becomes `/media/`, the
+image policy stays at `'self'`, and `config/urls.py` adds one route that matches only generated
+product WebP names. Nothing else under `MEDIA_ROOT` is reachable, no user-supplied filename ever
+appears in a URL, and the view is confined to `MEDIA_ROOT/products` and to safe methods. A
+separate origin is still preferable where the host can provide one, because it keeps uploaded
+bytes off the application origin entirely; this is the documented trade for hosts that cannot.
+
+`POSTGRES_SSLMODE` selects server verification. `verify-full` stays the default. `verify-ca`
+proves the chain but skips the hostname check, for providers whose certificate names do not cover
+the hostname you connect to; it requires `POSTGRES_SSLROOTCERT`. `require` encrypts without
+authenticating the server at all and is defensible only when the database is reachable solely over
+the provider's private network. `prefer`, `allow` and `disable` are refused, so no configuration
+can silently produce an unencrypted connection.
+
+Media must still outlive a redeploy. Attach a persistent volume at `MEDIA_ROOT` (`/app/media`), or
+set the `MEDIA_BUCKET_*` variables to keep generated media in any S3-compatible bucket instead.
+Without one of the two, a restart serves a catalog whose images have been discarded.
+
+### Railway
+
+Railway builds the repository `Dockerfile`. The service needs `PORT=8000` so the platform routes
+to the port Gunicorn binds, a volume mounted at `/app/media`, and `DJANGO_ALLOWED_HOSTS`,
+`DJANGO_SITE_URL` and `DJANGO_CSRF_TRUSTED_ORIGINS` set to the service domain. TLS terminates at
+the platform, so `DJANGO_TRUST_PROXY_HTTPS=true` is required or every request redirects in a loop.
+
+Railway's PostgreSQL template issues a self-signed certificate whose subject alternative name
+covers only `localhost`, so `verify-full` and `verify-ca` both fail against it without rebuilding
+the template's certificate. Reach it over the private network and set `POSTGRES_SSLMODE=require`,
+or point the application at a provider that publishes a conventional chain and keep the default.
+
+Migrations and seeding do not run at startup. Apply them from a trusted workstation against the
+managed database, or through the platform's one-off command runner:
+
+```bash
+uv run --locked --env-file .env.production manage.py migrate --settings=config.settings.production
+uv run --locked --env-file .env.production manage.py seed_catalog --extended --settings=config.settings.production
+uv run --locked --env-file .env.production manage.py createsuperuser --settings=config.settings.production
+```
+
+Check `/healthz/` first: it touches no database and is exempt from the HTTPS redirect, so it
+isolates "the platform reached the application" from "the application reached PostgreSQL". Then
+check `/readyz/`, which runs a trivial query and returns a generic 503 when the database is
+unreachable. Then load a catalog page to confirm media URLs resolve.
+
+`DJANGO_TRUSTED_PROXY_NETWORKS` stays empty until the platform's proxy peer address is known.
+Until it is set, rate limits key on that proxy address rather than the visitor's, which makes them
+global rather than per-client.
