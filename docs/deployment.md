@@ -209,9 +209,28 @@ honour that, so `DJANGO_BOOTSTRAP_ON_START=true` opts a deployment into running
 entrypoint does nothing and the Compose deployment behaves exactly as documented above.
 
 The command applies migrations, seeds the demonstration catalog and creates an administrator. It
-runs on every container start, so every stage is idempotent: migrations are no-ops once applied,
-and the three seed commands skip records that already exist. A failure stops the container rather
-than letting it serve a half-configured application.
+runs on every container start: migrations are no-ops once applied, and seeding preserves existing
+products, prices, stock and occupied image positions. Before seeding, bootstrap removes image rows
+whose files are missing. It then runs `seed_catalog --extended --restore-missing-images` to restore
+empty front-image positions for known demo products with a matching existing colour variant, before
+adding gallery photographs. This also repairs a partially completed startup that recreated gallery
+images but left the front photographs missing. Repeating a successful bootstrap adds no duplicates.
+The merchandising colour checks still reject incompatible front photographs instead of replacing
+them. A failure stops the container rather than letting it serve a half-configured application.
+
+For the restart loop reporting `The front photograph for merino-cardigan differs from the seed`
+after missing-media cleanup, redeploy the build containing this recovery path with
+`DJANGO_BOOTSTRAP_ON_START=true`. Bootstrap restores the missing fronts before merchandising runs;
+no catalog reset is needed. To invoke the same sequence manually inside the running container:
+
+```bash
+uv run --no-sync --no-dev python manage.py bootstrap_deployment
+```
+
+Attach persistent storage at `/app/media` (or configure the supported object-storage backend) to
+prevent media loss on the next redeploy. Recovery recreates bundled demo photographs only; it cannot
+reconstruct lost custom uploads without a backup. With recovery enabled, deliberately empty front
+positions on seeded products are also replenished when their original colour variant still exists.
 
 This runs at container start rather than through a platform pre-deploy hook on purpose. Seeding
 writes generated media to `MEDIA_ROOT`, and only the real container start is guaranteed to have

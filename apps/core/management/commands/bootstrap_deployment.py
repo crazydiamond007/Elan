@@ -2,7 +2,8 @@
 
 Written for platforms that offer no separate migration step, so it runs on every container start
 and must be safe to repeat. Each stage is idempotent: migrations are already no-ops once applied,
-the seed commands skip records that exist, and the administrator is only created when absent.
+the seeds preserve existing records while restoring missing demo media, and the administrator is
+only created when absent.
 
 docs/deployment.md keeps migrations manual for the reviewed Compose deployment. This command runs
 only when DJANGO_BOOTSTRAP_ON_START is set, so that boundary is unchanged unless a deployment opts
@@ -40,7 +41,7 @@ class Command(BaseCommand):
         else:
             self._discard_images_whose_files_are_gone()
             self.stdout.write("Seeding the demonstration catalog")
-            call_command("seed_catalog", "--extended", verbosity=0)
+            call_command("seed_catalog", "--extended", "--restore-missing-images", verbosity=0)
             call_command("seed_editorial", verbosity=0)
             call_command("seed_merchandising", verbosity=0)
 
@@ -52,8 +53,8 @@ class Command(BaseCommand):
 
         The database outlives the container, but media on a container filesystem does not. A
         deployment that seeded before a persistent volume was attached is left with rows that
-        reference files nothing can serve, and the seed commands skip those products because a
-        row is already present. Dropping the unusable rows lets the seeds recreate them, which
+        reference files nothing can serve. Dropping unusable rows and explicitly restoring missing
+        seed front photographs before the gallery commands lets the seeds recreate them, which
         makes the deployment repair itself once storage actually persists.
         """
         stranded = []

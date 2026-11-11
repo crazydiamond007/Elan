@@ -127,9 +127,15 @@ shopping cookie before submission. Verify real-host behavior and trusted-proxy a
 
 `seed_catalog` creates four fictional products, thirteen variants, two categories and two collections.
 It uses the versioned original image masters and copies sanitized responsive files to local media.
-Existing product records, prices, stock, images and editorial edits are left untouched on reruns.
-It does not repair incomplete existing products. Changes made through Admin appear in storefront
-queries; a product needs an active category, an active variant and a reached publication date.
+By default, existing product records, prices, stock, images and editorial edits are left untouched
+on reruns; incomplete existing products are not repaired. The explicit `--restore-missing-images`
+option restores a known demo product's front photograph only when image position zero is empty and
+the original colour still has a variant. It never replaces an occupied position or resets inventory.
+Deployment bootstrap uses this option after removing image rows whose files are missing, before
+seeding galleries. Persist media across redeploys; this can recreate bundled demo photographs, but
+custom uploads require backups. See [deployment recovery](docs/deployment.md#bootstrapping-on-start).
+Changes made through Admin appear in storefront queries; a product needs an active category, an
+active variant and a reached publication date.
 
 The approved design refinement adds ten original product photographs and an optional catalog
 expansion (fourteen products and fifty variants in a fresh database):

@@ -1,4 +1,4 @@
-"""Create a small, image-matched fictional capsule; leave existing records untouched."""
+"""Seed a fictional capsule, optionally restoring missing front photographs."""
 
 from decimal import Decimal
 
@@ -20,6 +20,11 @@ class Command(BaseCommand):
             "--extended",
             action="store_true",
             help="Include the ten additional image-matched fictional pieces.",
+        )
+        parser.add_argument(
+            "--restore-missing-images",
+            action="store_true",
+            help="Restore empty seed front-image positions with a matching colour variant.",
         )
 
     def handle(self, *args, **options):
@@ -58,6 +63,7 @@ class Command(BaseCommand):
                     slug=slug, defaults={"name": label, "position": position}
                 )
             created = 0
+            restored = 0
             for index, piece in enumerate(pieces):
                 is_accessory = piece.departments == ("accessories",)
                 color, _ = Color.objects.get_or_create(
@@ -106,6 +112,13 @@ class Command(BaseCommand):
                     },
                 )
                 if not new:
+                    if (
+                        options["restore_missing_images"]
+                        and not product.images.filter(position=0).exists()
+                        and product.variants.filter(color=color).exists()
+                    ):
+                        self._create_front_image(source, product, piece, color)
+                        restored += 1
                     continue
                 product.collections.add(autumn)
                 if product.is_signature:
@@ -124,19 +137,24 @@ class Command(BaseCommand):
                     )
                     variant.full_clean()
                     variant.save()
-                with (source / f"{piece.image}.webp").open("rb") as master:
-                    image = ProductImage(
-                        product=product,
-                        color=color,
-                        alt_text=f"{piece.name} in {piece.color.lower()}, "
-                        "photographed against warm ivory.",
-                    )
-                    image.image = File(master, name=f"{piece.image}.webp")
-                    image.full_clean(exclude=["small", "medium"])
-                    image.save()
+                self._create_front_image(source, product, piece, color)
                 created += 1
         self.stdout.write(
             self.style.SUCCESS(
                 f"Created {created} fictional products. Existing products and stock were preserved."
             )
         )
+        if restored:
+            self.stdout.write(self.style.SUCCESS(f"Restored {restored} missing front photographs."))
+
+    def _create_front_image(self, source, product, piece, color):
+        with (source / f"{piece.image}.webp").open("rb") as master:
+            image = ProductImage(
+                product=product,
+                color=color,
+                position=0,
+                alt_text=f"{piece.name} in {piece.color.lower()}, photographed against warm ivory.",
+            )
+            image.image = File(master, name=f"{piece.image}.webp")
+            image.full_clean(exclude=["small", "medium"])
+            image.save()
