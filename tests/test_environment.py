@@ -342,3 +342,19 @@ def test_a_connection_url_for_another_engine_is_refused():
     result = database_from({"DATABASE_URL": "mysql://user:pass@db.internal:3306/shopdb"})
     assert result.returncode != 0
     assert "DATABASE_URL" in result.stderr
+
+
+@pytest.mark.parametrize(
+    ("key", "expected"),
+    [
+        ("PASTE_GENERATED_KEY_HERE", "24 characters"),
+        ("django-insecure-" + "0123456789abcdef" * 4, "development placeholder"),
+        ("a" * 60, "1 distinct"),
+    ],
+)
+def test_a_rejected_secret_key_names_the_failing_property(key, expected):
+    result = production_settings({"DJANGO_SECRET_KEY": key})
+    assert result.returncode != 0
+    assert expected in result.stderr
+    # The value itself is never echoed, only facts about its shape.
+    assert key not in result.stderr

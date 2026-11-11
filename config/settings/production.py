@@ -10,8 +10,22 @@ from config.env import boolean, comma_list, https_origin, integer, proxy_network
 from .base import *  # noqa: F403
 
 SECRET_KEY = required("DJANGO_SECRET_KEY")
-if len(SECRET_KEY) < 50 or len(set(SECRET_KEY)) < 5 or SECRET_KEY.startswith("django-insecure-"):
-    raise ImproperlyConfigured("DJANGO_SECRET_KEY must be a strong, deployment-specific secret.")
+# Name the failing property. The value must never be echoed, but its length and variety are not
+# themselves secret, and without them a rejected key is indistinguishable from a missing one.
+if SECRET_KEY.startswith("django-insecure-"):
+    _weakness = "it is the development placeholder Django generates"
+elif len(SECRET_KEY) < 50:
+    _weakness = f"it is {len(SECRET_KEY)} characters and at least 50 are required"
+elif len(set(SECRET_KEY)) < 5:
+    _weakness = f"it uses only {len(set(SECRET_KEY))} distinct characters"
+else:
+    _weakness = ""
+if _weakness:
+    raise ImproperlyConfigured(
+        "DJANGO_SECRET_KEY must be a strong, deployment-specific secret: "
+        f"{_weakness}. Generate one with: "
+        "python -c 'import secrets; print(secrets.token_urlsafe(64))'"
+    )
 
 DEBUG = False
 ALLOWED_HOSTS = comma_list("DJANGO_ALLOWED_HOSTS", mandatory=True)
