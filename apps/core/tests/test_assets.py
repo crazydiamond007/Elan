@@ -1,6 +1,8 @@
 import os
 import re
 
+from django.conf import settings
+
 import pytest
 from django.core.exceptions import SuspiciousFileOperation
 from django.test import override_settings
@@ -78,3 +80,37 @@ def test_media_route_matches_only_generated_product_names(path):
 
 def test_media_route_matches_a_generated_product_name():
     assert MEDIA_PATTERN.match(f"media/products/{GENERATED_NAME}")
+
+
+# Browsers request /favicon.ico whatever the document declares, so the path is routed rather than
+# left to record a 404 on every visit.
+
+
+@pytest.mark.django_db
+def test_favicon_ico_points_at_the_declared_icon(client):
+    response = client.get("/favicon.ico")
+    assert response.status_code == 302
+    assert response.headers["Location"].endswith(".svg")
+    assert "images/favicon" in response.headers["Location"]
+
+
+@pytest.mark.django_db
+def test_favicon_ico_is_not_permanent(client):
+    # The target carries a content hash, so a permanent redirect would be cached against a
+    # filename the next build replaces.
+    assert client.get("/favicon.ico").status_code != 301
+
+
+@pytest.mark.django_db
+@pytest.mark.parametrize("method", ["post", "put", "delete"])
+def test_favicon_ico_rejects_unsafe_methods(client, method):
+    assert getattr(client, method)("/favicon.ico").status_code == 405
+
+
+def test_the_icon_is_legible_at_tab_size():
+    source = (settings.BASE_DIR / "static" / "images" / "favicon.svg").read_text()
+    # A 48-unit viewBox renders at 16px, dividing every unit by three; a hairline stroke vanishes.
+    width = float(re.search(r'stroke-width="([0-9.]+)"', source).group(1))
+    assert width / 3 >= 1.0, "stroke would render thinner than a pixel in a browser tab"
+    # Drawn on the brand's dark tone so it survives a light browser chrome.
+    assert 'fill="#222222"' in source

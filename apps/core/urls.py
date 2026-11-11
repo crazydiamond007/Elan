@@ -29,6 +29,7 @@ urlpatterns = [
     path("our-story/", views.story, name="story"),
     path("product-care/", views.care, name="care"),
     path("size-guide/", views.size_guide, name="size_guide"),
+    path("favicon.ico", views.favicon, name="favicon"),
     path("robots.txt", views.robots, name="robots"),
     path("sitemap.xml", views.sitemap, name="sitemap"),
     path("healthz/", views.health, name="health"),

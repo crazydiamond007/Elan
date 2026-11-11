@@ -2,6 +2,7 @@ from types import SimpleNamespace
 from urllib.parse import urlsplit
 
 from django.conf import settings
+from django.contrib.staticfiles.storage import staticfiles_storage
 from django.db import DatabaseError, connection
 from django.http import HttpRequest, HttpResponse, JsonResponse
 from django.shortcuts import redirect, render
@@ -13,6 +14,17 @@ from django.views.static import serve
 from apps.catalog.models import Collection, Product
 
 from .sitemaps import SITEMAPS
+
+
+@require_safe
+def favicon(request: HttpRequest) -> HttpResponse:
+    """Point the implicit /favicon.ico request at the declared icon.
+
+    Browsers request this path whatever the document declares, so without a route every visit
+    records a 404. The redirect is temporary on purpose: the target carries a content hash, and a
+    permanent one would be cached against a filename that the next build replaces.
+    """
+    return redirect(staticfiles_storage.url("images/favicon.svg"))
 
 
 @require_safe

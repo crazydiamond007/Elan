@@ -1,5 +1,10 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48">
   <title>MAISON ÉLAN</title>
-  <rect width="48" height="48" fill="#f7f5f0"/>
-  <path d="M15 14v24h18M15 25h14M15 14h18M23 9l5-5" fill="none" stroke="#222" stroke-width="2"/>
+  <!-- Charcoal ground with an ivory É. A tab icon renders at 16px, so the mark is drawn on the
+       brand's dark tone rather than its near-white one: an ivory tile disappears into a light
+       browser chrome, while this reads against both light and dark themes. Stroke width is set
+       for that 16px size, where a 48-unit viewBox divides each unit by three. -->
+  <rect width="48" height="48" fill="#222222"/>
+  <path d="M16 14v22h17M16 25h13M16 14h17M25 9.5l5.5-5.5" fill="none" stroke="#f7f5f0"
+        stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round"/>
 </svg>
