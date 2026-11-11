@@ -147,34 +147,47 @@ Without one of the two, a restart serves a catalog whose images have been discar
 
 ### Railway
 
-`.railway/railway.ts` describes the deployment: the application service built from this
-repository's `Dockerfile`, a managed PostgreSQL service, and a 1 GB volume mounted at
-`/app/media`. Railway's Config as Code (`railway.json`) is deprecated, stops being read on
-2026-12-01 and cannot be adopted by new services, so Infrastructure as Code is the supported
-description. Evaluating the file requires the `railway` package, which is a development
-dependency and never reaches the runtime image.
+`railway.json` pins the build and deploy settings: the repository `Dockerfile`, `/healthz/` as the
+health check, and a bounded restart policy. It cannot express variables or volumes, so those are
+set on the service itself.
 
-The file sets every variable except the secret. `DJANGO_SECRET_KEY` uses `preserve()`, which keeps
-whatever Railway already holds, so it is set once out of band and never written to the repository:
+Create the project, add a PostgreSQL database to it, and attach a volume to the application
+service mounted at `/app/media`. Generated product derivatives live there, and a container
+filesystem is replaced on every redeploy, so without the volume the catalog returns with its
+images missing. A service with a volume cannot run replicas, and redeploying it involves brief
+downtime even with a health check configured.
 
-```bash
-railway login
-railway link
-railway variable set DJANGO_SECRET_KEY="$(python -c 'import secrets; print(secrets.token_urlsafe(64))')"
-railway config plan
-railway config apply
+Set these variables on the application service. `${{Postgres.*}}` resolves against the database
+service and assumes it is named `Postgres`; `${{RAILWAY_PUBLIC_DOMAIN}}` resolves to the generated
+domain:
+
+```
+PORT=8000
+WEB_CONCURRENCY=2
+DJANGO_SETTINGS_MODULE=config.settings.production
+DJANGO_SECRET_KEY=<generate a unique value; never commit it>
+DJANGO_ALLOWED_HOSTS=${{RAILWAY_PUBLIC_DOMAIN}},healthcheck.railway.app
+DJANGO_SITE_URL=https://${{RAILWAY_PUBLIC_DOMAIN}}
+DJANGO_CSRF_TRUSTED_ORIGINS=https://${{RAILWAY_PUBLIC_DOMAIN}}
+DJANGO_TRUST_PROXY_HTTPS=true
+DJANGO_SERVE_MEDIA=true
+DJANGO_HSTS_SECONDS=0
+POSTGRES_HOST=${{Postgres.RAILWAY_PRIVATE_DOMAIN}}
+POSTGRES_PORT=5432
+POSTGRES_DB=${{Postgres.PGDATABASE}}
+POSTGRES_USER=${{Postgres.PGUSER}}
+POSTGRES_PASSWORD=${{Postgres.PGPASSWORD}}
+POSTGRES_SSLMODE=require
 ```
 
-`plan` only reads remote state and prints the difference; `apply` runs a fresh plan first and
-refuses if the environment drifted since. Both prompt for a project and environment when the
-directory is not linked, and neither creates a project, so link an existing one first.
+Generate the secret with `python -c 'import secrets; print(secrets.token_urlsafe(64))'`.
 
-Three settings are easy to get wrong and each fails in a distinctive way. `PORT=8000` matches the
-port the image binds; without it Railway health-checks a port nothing is listening on and the
-deployment never becomes healthy. `DJANGO_TRUST_PROXY_HTTPS=true` is required because TLS
-terminates at the platform; without it every request redirects to itself. `DJANGO_ALLOWED_HOSTS`
-must contain `healthcheck.railway.app` as well as the public domain, because health checks arrive
-with that Host header and production settings reject unlisted hosts with a 400.
+Three of these fail in distinctive ways. `PORT` matches the port the image binds; Railway health
+checks the port it is told about, so a mismatch leaves the deployment permanently unhealthy rather
+than reporting a useful error. `DJANGO_TRUST_PROXY_HTTPS` is required because TLS terminates at
+the platform; without it every request redirects to itself. `DJANGO_ALLOWED_HOSTS` must contain
+`healthcheck.railway.app` as well as the public domain, because health checks arrive with that
+Host header and production settings answer an unlisted host with 400.
 
 Railway's PostgreSQL template issues a self-signed certificate whose subject alternative name
 covers only `localhost`, so `verify-full` and `verify-ca` both fail against it without rebuilding
@@ -182,9 +195,6 @@ the template's certificate. The service therefore reaches the database over the 
 network with `POSTGRES_SSLMODE=require`, using the database's `RAILWAY_PRIVATE_DOMAIN` rather than
 its public TCP proxy. Pointing the application at a provider that publishes a conventional chain
 instead allows the default to stand.
-
-A service with a volume cannot run replicas, and redeploying it involves brief downtime even with
-a health check configured.
 
 Migrations and seeding do not run at startup, matching the policy above. Run them inside the
 deployed container once the service is healthy:
@@ -196,9 +206,7 @@ railway ssh -- uv run --no-sync --no-dev python manage.py createsuperuser
 ```
 
 `railway run` executes locally with the service's variables, so it cannot resolve the private
-database hostname; `railway ssh` runs inside the container, which can. Declaring
-`preDeploy: "..."` in `.railway/railway.ts` would migrate automatically on every deployment and is
-deliberately not configured, because the handoff above requires migrations to be reviewed first.
+database hostname; `railway ssh` runs inside the container, which can.
 
 Check `/healthz/` first: it touches no database and is exempt from the HTTPS redirect, so it
 isolates "the platform reached the application" from "the application reached PostgreSQL". Then

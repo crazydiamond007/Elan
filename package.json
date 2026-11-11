@@ -13,7 +13,6 @@
   },
   "devDependencies": {
     "@tailwindcss/cli": "4.3.0",
-    "railway": "^3.16.0",
     "tailwindcss": "4.3.0"
   }
 }
