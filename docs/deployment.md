@@ -147,24 +147,58 @@ Without one of the two, a restart serves a catalog whose images have been discar
 
 ### Railway
 
-Railway builds the repository `Dockerfile`. The service needs `PORT=8000` so the platform routes
-to the port Gunicorn binds, a volume mounted at `/app/media`, and `DJANGO_ALLOWED_HOSTS`,
-`DJANGO_SITE_URL` and `DJANGO_CSRF_TRUSTED_ORIGINS` set to the service domain. TLS terminates at
-the platform, so `DJANGO_TRUST_PROXY_HTTPS=true` is required or every request redirects in a loop.
+`.railway/railway.ts` describes the deployment: the application service built from this
+repository's `Dockerfile`, a managed PostgreSQL service, and a 1 GB volume mounted at
+`/app/media`. Railway's Config as Code (`railway.json`) is deprecated, stops being read on
+2026-12-01 and cannot be adopted by new services, so Infrastructure as Code is the supported
+description. Evaluating the file requires the `railway` package, which is a development
+dependency and never reaches the runtime image.
+
+The file sets every variable except the secret. `DJANGO_SECRET_KEY` uses `preserve()`, which keeps
+whatever Railway already holds, so it is set once out of band and never written to the repository:
+
+```bash
+railway login
+railway link
+railway variable set DJANGO_SECRET_KEY="$(python -c 'import secrets; print(secrets.token_urlsafe(64))')"
+railway config plan
+railway config apply
+```
+
+`plan` only reads remote state and prints the difference; `apply` runs a fresh plan first and
+refuses if the environment drifted since. Both prompt for a project and environment when the
+directory is not linked, and neither creates a project, so link an existing one first.
+
+Three settings are easy to get wrong and each fails in a distinctive way. `PORT=8000` matches the
+port the image binds; without it Railway health-checks a port nothing is listening on and the
+deployment never becomes healthy. `DJANGO_TRUST_PROXY_HTTPS=true` is required because TLS
+terminates at the platform; without it every request redirects to itself. `DJANGO_ALLOWED_HOSTS`
+must contain `healthcheck.railway.app` as well as the public domain, because health checks arrive
+with that Host header and production settings reject unlisted hosts with a 400.
 
 Railway's PostgreSQL template issues a self-signed certificate whose subject alternative name
 covers only `localhost`, so `verify-full` and `verify-ca` both fail against it without rebuilding
-the template's certificate. Reach it over the private network and set `POSTGRES_SSLMODE=require`,
-or point the application at a provider that publishes a conventional chain and keep the default.
+the template's certificate. The service therefore reaches the database over the project's private
+network with `POSTGRES_SSLMODE=require`, using the database's `RAILWAY_PRIVATE_DOMAIN` rather than
+its public TCP proxy. Pointing the application at a provider that publishes a conventional chain
+instead allows the default to stand.
 
-Migrations and seeding do not run at startup. Apply them from a trusted workstation against the
-managed database, or through the platform's one-off command runner:
+A service with a volume cannot run replicas, and redeploying it involves brief downtime even with
+a health check configured.
+
+Migrations and seeding do not run at startup, matching the policy above. Run them inside the
+deployed container once the service is healthy:
 
 ```bash
-uv run --locked --env-file .env.production manage.py migrate --settings=config.settings.production
-uv run --locked --env-file .env.production manage.py seed_catalog --extended --settings=config.settings.production
-uv run --locked --env-file .env.production manage.py createsuperuser --settings=config.settings.production
+railway ssh -- uv run --no-sync --no-dev python manage.py migrate
+railway ssh -- uv run --no-sync --no-dev python manage.py seed_catalog --extended
+railway ssh -- uv run --no-sync --no-dev python manage.py createsuperuser
 ```
+
+`railway run` executes locally with the service's variables, so it cannot resolve the private
+database hostname; `railway ssh` runs inside the container, which can. Declaring
+`preDeploy: "..."` in `.railway/railway.ts` would migrate automatically on every deployment and is
+deliberately not configured, because the handoff above requires migrations to be reviewed first.
 
 Check `/healthz/` first: it touches no database and is exempt from the HTTPS redirect, so it
 isolates "the platform reached the application" from "the application reached PostgreSQL". Then
