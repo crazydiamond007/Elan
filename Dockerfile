@@ -23,8 +23,10 @@ COPY . .
 COPY --from=styles /build/static/css/app.css static/css/app.css
 RUN uv run --locked --no-dev python scripts/build_static.py
 RUN groupadd --gid 10001 maison && useradd --uid 10001 --gid maison --no-create-home maison \
-    && mkdir -p /app/media && chown maison:maison /app/media
-USER 10001:10001
+    && mkdir -p /app/media /home/maison \
+    && chown maison:maison /app/media /home/maison
+# No USER here: deploy/entrypoint.sh starts as root solely to take ownership of a volume the
+# platform attaches as root, then drops to this account for the bootstrap and for Gunicorn.
 ENV DJANGO_SETTINGS_MODULE=config.settings.production GUNICORN_BIND=0.0.0.0:8000 UV_CACHE_DIR=/tmp/uv-cache
 EXPOSE 8000
 ENTRYPOINT ["deploy/entrypoint.sh"]

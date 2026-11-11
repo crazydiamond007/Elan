@@ -200,6 +200,20 @@ network with `POSTGRES_SSLMODE=require`, using the database's `RAILWAY_PRIVATE_D
 its public TCP proxy. Pointing the application at a provider that publishes a conventional chain
 instead allows the default to stand.
 
+### Volume ownership and the runtime user
+
+A platform attaches a persistent volume owned by root, replacing the ownership the image gave
+`/app/media` at build time, and the unprivileged runtime user then cannot write generated media to
+it. `deploy/entrypoint.sh` therefore starts as root, takes ownership of the mount, and drops to UID
+10001 with `setpriv` for the bootstrap and for Gunicorn. No application code runs as root, and the
+entrypoint does nothing when the container is already started unprivileged, which is the case for
+the Compose deployment.
+
+Dropping privileges changes the user but not the environment, so the entrypoint also points `HOME`
+at the runtime user's own directory. libpq reads client TLS material from `$HOME/.postgresql/`, and
+left pointing at root's directory a `sslmode=require` connection fails on an unreadable certificate
+path rather than on anything to do with the database.
+
 ### Bootstrapping on start
 
 The policy above keeps migrations manual, because a reviewed deployment should apply them
