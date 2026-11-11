@@ -15,7 +15,8 @@ COPY --from=uv /uv /usr/local/bin/uv
 ENV PYTHONDONTWRITEBYTECODE=1 PYTHONUNBUFFERED=1 UV_PYTHON_DOWNLOADS=never
 WORKDIR /app
 COPY pyproject.toml uv.lock .python-version ./
-RUN --mount=type=cache,target=/root/.cache/uv uv sync --locked --no-dev
+# The cache mount carries an explicit id: some hosted builders reject an id-less cache mount.
+RUN --mount=type=cache,id=uv-cache,target=/root/.cache/uv uv sync --locked --no-dev
 COPY . .
 COPY --from=styles /build/static/css/app.css static/css/app.css
 RUN uv run --locked --no-dev python scripts/build_static.py
