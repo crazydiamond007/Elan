@@ -2,8 +2,10 @@
 
 import os
 from pathlib import Path
+from urllib.parse import unquote, urlsplit
 
 from csp.constants import NONCE, NONE, SELF
+from django.core.exceptions import ImproperlyConfigured
 
 from config.env import integer, required
 
@@ -63,14 +65,42 @@ TEMPLATES = [
     },
 ]
 
+
+def _database_credentials():
+    """Connection details from DATABASE_URL when present, else the discrete POSTGRES_* values.
+
+    Managed platforms publish one connection URL and make referencing it a single action, which
+    removes four opportunities to mistype a variable name. The discrete variables remain the
+    documented form for the Compose deployment and for local development.
+    """
+    url = os.environ.get("DATABASE_URL", "").strip()
+    if not url:
+        return {
+            "NAME": required("POSTGRES_DB"),
+            "USER": required("POSTGRES_USER"),
+            "PASSWORD": required("POSTGRES_PASSWORD"),
+            "HOST": os.environ.get("POSTGRES_HOST", "127.0.0.1"),
+            "PORT": integer("POSTGRES_PORT", default=5432, minimum=1, maximum=65535),
+        }
+    parsed = urlsplit(url)
+    if parsed.scheme not in {"postgres", "postgresql"}:
+        raise ImproperlyConfigured("DATABASE_URL must use the postgres:// or postgresql:// scheme.")
+    name = unquote(parsed.path).lstrip("/")
+    if not (name and parsed.hostname and parsed.username):
+        raise ImproperlyConfigured("DATABASE_URL must include a user, host and database name.")
+    return {
+        "NAME": name,
+        "USER": unquote(parsed.username),
+        "PASSWORD": unquote(parsed.password or ""),
+        "HOST": parsed.hostname,
+        "PORT": parsed.port or 5432,
+    }
+
+
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.postgresql",
-        "NAME": required("POSTGRES_DB"),
-        "USER": required("POSTGRES_USER"),
-        "PASSWORD": required("POSTGRES_PASSWORD"),
-        "HOST": os.environ.get("POSTGRES_HOST", "127.0.0.1"),
-        "PORT": integer("POSTGRES_PORT", default=5432, minimum=1, maximum=65535),
+        **_database_credentials(),
         "CONN_MAX_AGE": 0,
         "CONN_HEALTH_CHECKS": True,
         "OPTIONS": {"connect_timeout": 5},

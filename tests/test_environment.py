@@ -272,3 +272,73 @@ def test_serving_media_locally_ignores_bucket_configuration():
     )
     assert result.returncode == 0, result.stderr
     assert result.stdout.split()[1].endswith("FileSystemStorage")
+
+
+def test_missing_required_values_name_the_related_variables_that_did_arrive(monkeypatch):
+    monkeypatch.setenv("EXAMPLE_PRESENT", "value")
+    monkeypatch.setenv("EXAMPLE_EMPTY", "")
+    monkeypatch.delenv("EXAMPLE_SETTING", raising=False)
+    with pytest.raises(ImproperlyConfigured) as error:
+        env.required("EXAMPLE_SETTING")
+    message = str(error.value)
+    assert "EXAMPLE_PRESENT" in message
+    # An empty variable is the symptom being diagnosed, so it is not reported as having arrived.
+    assert "EXAMPLE_EMPTY" not in message
+    # Names only: a diagnostic must never widen into a secret disclosure.
+    assert "value" not in message
+
+
+def database_from(extra_environment, removed=()):
+    environment = os.environ.copy()
+    environment.update(
+        DJANGO_SETTINGS_MODULE="config.settings.development",
+        DJANGO_SECRET_KEY="development-settings-test-" + "0123456789abcdef" * 4,
+    )
+    environment.pop("DATABASE_URL", None)
+    environment.update(extra_environment)
+    for name in removed:
+        environment.pop(name, None)
+    return subprocess.run(
+        [
+            sys.executable,
+            "-c",
+            "import django; django.setup(); from django.conf import settings; "
+            "d = settings.DATABASES['default']; "
+            "print(d['NAME'], d['USER'], d['PASSWORD'], d['HOST'], d['PORT'])",
+        ],
+        env=environment,
+        capture_output=True,
+        text=True,
+        check=False,
+    )
+
+
+def test_a_connection_url_supplies_every_credential():
+    result = database_from({"DATABASE_URL": "postgresql://user:p%40ss@db.internal:6543/shopdb"})
+    assert result.returncode == 0, result.stderr
+    assert result.stdout.split() == ["shopdb", "user", "p@ss", "db.internal", "6543"]
+
+
+def test_a_connection_url_takes_precedence_over_discrete_variables():
+    result = database_from(
+        {
+            "DATABASE_URL": "postgres://url-user:url-pass@url-host:5432/url-db",
+            "POSTGRES_DB": "ignored",
+            "POSTGRES_USER": "ignored",
+            "POSTGRES_PASSWORD": "ignored",
+        }
+    )
+    assert result.returncode == 0, result.stderr
+    assert "ignored" not in result.stdout
+
+
+def test_a_connection_url_without_a_database_name_is_refused():
+    result = database_from({"DATABASE_URL": "postgresql://user:pass@db.internal:5432/"})
+    assert result.returncode != 0
+    assert "DATABASE_URL" in result.stderr
+
+
+def test_a_connection_url_for_another_engine_is_refused():
+    result = database_from({"DATABASE_URL": "mysql://user:pass@db.internal:3306/shopdb"})
+    assert result.returncode != 0
+    assert "DATABASE_URL" in result.stderr

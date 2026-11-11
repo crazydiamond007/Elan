@@ -10,7 +10,16 @@ from django.core.exceptions import ImproperlyConfigured
 def required(name: str) -> str:
     value = os.environ.get(name, "").strip()
     if not value:
-        raise ImproperlyConfigured(f"Set the required environment variable {name}.")
+        # Name the related variables that did arrive. A platform that cannot resolve a variable
+        # reference supplies an empty string, which is indistinguishable from an unset variable
+        # until you can see what else reached the process. Names only; never values.
+        prefix = name.split("_", 1)[0]
+        present = sorted(key for key in os.environ if key.startswith(prefix) and os.environ[key])
+        seen = ", ".join(present) if present else "none"
+        raise ImproperlyConfigured(
+            f"Set the required environment variable {name}. "
+            f"Non-empty variables starting with {prefix}: {seen}."
+        )
     return value
 
 
