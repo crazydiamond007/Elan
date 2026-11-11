@@ -56,3 +56,30 @@ def test_an_incomplete_administrator_definition_creates_nobody(monkeypatch, user
     monkeypatch.setenv("DJANGO_SUPERUSER_PASSWORD", password)
     bootstrap()
     assert not get_user_model().objects.exists()
+
+
+@pytest.mark.django_db
+def test_images_whose_files_vanished_are_discarded_so_seeding_can_replace_them(catalog_data):
+    from apps.catalog.models import ProductImage
+
+    image = ProductImage.objects.first()
+    assert image is not None
+    surviving = ProductImage.objects.exclude(pk=image.pk).count()
+    # Simulate media seeded onto a container filesystem that was then replaced.
+    image.image.storage.delete(image.image.name)
+
+    call_command("bootstrap_deployment", skip_seed=False, verbosity=0)
+
+    assert not ProductImage.objects.filter(pk=image.pk).exists()
+    # Rows whose files are intact are untouched, and seeding refills the gap.
+    assert ProductImage.objects.count() >= surviving
+
+
+@pytest.mark.django_db
+def test_images_with_intact_files_are_kept(catalog_data):
+    from apps.catalog.models import ProductImage
+
+    before = set(ProductImage.objects.values_list("pk", flat=True))
+    assert before
+    call_command("bootstrap_deployment", skip_seed=False, verbosity=0)
+    assert before <= set(ProductImage.objects.values_list("pk", flat=True))

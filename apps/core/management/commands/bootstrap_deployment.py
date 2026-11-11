@@ -18,6 +18,8 @@ from django.core.management import call_command
 from django.core.management.base import BaseCommand, CommandError
 from django.db import transaction
 
+from apps.catalog.models import ProductImage
+
 
 class Command(BaseCommand):
     help = "Apply migrations, seed the demonstration catalog and ensure an administrator exists."
@@ -36,6 +38,7 @@ class Command(BaseCommand):
         if options["skip_seed"]:
             self.stdout.write("Skipping catalog seed")
         else:
+            self._discard_images_whose_files_are_gone()
             self.stdout.write("Seeding the demonstration catalog")
             call_command("seed_catalog", "--extended", verbosity=0)
             call_command("seed_editorial", verbosity=0)
@@ -43,6 +46,30 @@ class Command(BaseCommand):
 
         self._ensure_administrator()
         self.stdout.write(self.style.SUCCESS("Deployment is ready to serve"))
+
+    def _discard_images_whose_files_are_gone(self):
+        """Delete catalog image rows whose stored files no longer exist.
+
+        The database outlives the container, but media on a container filesystem does not. A
+        deployment that seeded before a persistent volume was attached is left with rows that
+        reference files nothing can serve, and the seed commands skip those products because a
+        row is already present. Dropping the unusable rows lets the seeds recreate them, which
+        makes the deployment repair itself once storage actually persists.
+        """
+        stranded = []
+        for image in ProductImage.objects.all():
+            files = (image.image, image.small, image.medium)
+            if any(not field.name or not field.storage.exists(field.name) for field in files):
+                stranded.append(image.pk)
+        if not stranded:
+            return
+        ProductImage.objects.filter(pk__in=stranded).delete()
+        self.stdout.write(
+            self.style.WARNING(
+                f"Discarded {len(stranded)} image(s) whose files were missing so they can be "
+                "recreated. Attach persistent storage at MEDIA_ROOT to stop this recurring."
+            )
+        )
 
     def _ensure_administrator(self):
         """Create the administrator named by the environment, once.
