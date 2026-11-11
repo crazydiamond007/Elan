@@ -178,6 +178,10 @@ POSTGRES_DB=${{Postgres.PGDATABASE}}
 POSTGRES_USER=${{Postgres.PGUSER}}
 POSTGRES_PASSWORD=${{Postgres.PGPASSWORD}}
 POSTGRES_SSLMODE=require
+DJANGO_BOOTSTRAP_ON_START=true
+DJANGO_SUPERUSER_USERNAME=<your administrator name>
+DJANGO_SUPERUSER_PASSWORD=<a password that passes Django's validators>
+DJANGO_SUPERUSER_EMAIL=<optional>
 ```
 
 Generate the secret with `python -c 'import secrets; print(secrets.token_urlsafe(64))'`.
@@ -196,17 +200,33 @@ network with `POSTGRES_SSLMODE=require`, using the database's `RAILWAY_PRIVATE_D
 its public TCP proxy. Pointing the application at a provider that publishes a conventional chain
 instead allows the default to stand.
 
-Migrations and seeding do not run at startup, matching the policy above. Run them inside the
-deployed container once the service is healthy:
+### Bootstrapping on start
 
-```bash
-railway ssh -- uv run --no-sync --no-dev python manage.py migrate
-railway ssh -- uv run --no-sync --no-dev python manage.py seed_catalog --extended
-railway ssh -- uv run --no-sync --no-dev python manage.py createsuperuser
-```
+The policy above keeps migrations manual, because a reviewed deployment should apply them
+deliberately and against a known backup. A platform that offers no separate migration step cannot
+honour that, so `DJANGO_BOOTSTRAP_ON_START=true` opts a deployment into running
+`manage.py bootstrap_deployment` from `deploy/entrypoint.sh` before Gunicorn starts. Unset, the
+entrypoint does nothing and the Compose deployment behaves exactly as documented above.
 
-`railway run` executes locally with the service's variables, so it cannot resolve the private
-database hostname; `railway ssh` runs inside the container, which can.
+The command applies migrations, seeds the demonstration catalog and creates an administrator. It
+runs on every container start, so every stage is idempotent: migrations are no-ops once applied,
+and the three seed commands skip records that already exist. A failure stops the container rather
+than letting it serve a half-configured application.
+
+This runs at container start rather than through a platform pre-deploy hook on purpose. Seeding
+writes generated media to `MEDIA_ROOT`, and only the real container start is guaranteed to have
+the persistent volume attached; a pre-deploy hook could seed into the image layer instead, leaving
+catalog rows that point at files the running container cannot see.
+
+The administrator comes from `DJANGO_SUPERUSER_USERNAME`, `DJANGO_SUPERUSER_PASSWORD` and the
+optional `DJANGO_SUPERUSER_EMAIL`. The password passes Django's validators, so a weak one fails the
+deployment instead of creating an account that cannot be defended. An existing account is never
+modified: a password changed through the admin survives the next restart, and the variable is a
+starting point rather than a standing instruction to overwrite.
+
+To run any of these manually instead, use `railway ssh --`, which executes inside the container.
+`railway run` executes locally with the service's variables and cannot resolve the private
+database hostname.
 
 Check `/healthz/` first: it touches no database and is exempt from the HTTPS redirect, so it
 isolates "the platform reached the application" from "the application reached PostgreSQL". Then

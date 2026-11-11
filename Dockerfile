@@ -27,4 +27,5 @@ RUN groupadd --gid 10001 maison && useradd --uid 10001 --gid maison --no-create-
 USER 10001:10001
 ENV DJANGO_SETTINGS_MODULE=config.settings.production GUNICORN_BIND=0.0.0.0:8000 UV_CACHE_DIR=/tmp/uv-cache
 EXPOSE 8000
+ENTRYPOINT ["deploy/entrypoint.sh"]
 CMD ["uv", "run", "--no-sync", "--no-dev", "gunicorn", "--env", "DJANGO_SETTINGS_MODULE=config.settings.production", "--config", "deploy/gunicorn.conf.py", "config.wsgi:application"]
